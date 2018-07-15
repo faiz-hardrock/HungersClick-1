@@ -1,0 +1,27 @@
+<!-- Generated template for the MenuHeaderComponent component -->
+<div>
+  
+    
+      <!-- <button ion-button class="loginButton" *ngIf="!isAuthUser" (click)="GotoLogin()"  icon-end>Login <ion-icon name="log-in" ></ion-icon>
+      </button> -->
+      <!-- <button ion-button *ngIf="isAuthUser" > My Orders
+      </button>
+      <button ion-button *ngIf="isAuthUser" > Settings 
+      </button>
+      <button ion-button *ngIf="isAuthUser" (click)="signOut()" > Sign out 
+      </button> -->
+     <ion-list>
+        <ion-item *ngIf="!isAuthUser" >
+            LOGIN
+          </ion-item>
+       <ion-item *ngIf="isAuthUser" >
+          <button ion-button *ngIf="isAuthUser" (click)="signOut()" ion-button full color="light"> MY ORDERS
+            </button>
+       </ion-item>
+       <ion-item *ngIf="isAuthUser">
+          <button ion-button *ngIf="isAuthUser" (click)="signOut()" ion-button full color="light"> LOGOUT
+            </button> 
+        </ion-item>
+     </ion-list>
+  
+</div>

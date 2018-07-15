@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar >
+  <ion-grid>
+  <ion-row align-items-center>
+ 
+    <ion-col col-2 align-items-center>
+      <ion-buttons>
+        <button ion-button icon-only menuToggle>
+          <ion-icon name='menu' ></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-col>
+	
+    <ion-col text-right>
+	<a href="#">
+	<ion-chip >
+	  <ion-icon name="pin" class="trackerButton"></ion-icon>
+     </ion-chip>
+	 </a>
+	 <a href="#">
+      <ion-chip >
+	  <ion-icon name="logo-whatsapp" class="whatsapp"></ion-icon>
+     </ion-chip>
+	 </a>
+	 <a href="#">
+	 <ion-chip >
+	  <ion-icon name="notifications" class="notifications"></ion-icon>
+     </ion-chip>
+	 </a>
+	 <a href="#" (click)="openFavouritesPage()">
+	 <ion-chip >
+	  <ion-icon name="heart" class="mealBox"></ion-icon>
+     </ion-chip>
+	 </a>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+  
+  <ion-col col-8>
+  <ion-item>
+    <ion-input type="text" placeholder="Search for meals, snacks etc"></ion-input>
+  </ion-item>
+  </ion-col>
+  <ion-col col-4 >
+  <button ion-button class="loginButton" icon-end>Login <ion-icon name="log-in" ></ion-icon> </button>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
+     
+	 
+  </ion-navbar>
+  
+</ion-header>
+<ion-content>
+<ion-grid>
+<ion-row>
+<ion-col text-center>
+<h4>FOOD MENU</h4>
+ <ion-list>
+<ion-list-header>
+      Biryani
+    </ion-list-header>
+  <ion-item *ngFor="let product of products">
+  
+   <ion-thumbnail item-start>
+     <img src="assets/imgs/snacks.jpg">
+    </ion-thumbnail>
+	<h2>{{product.Name}}</h2>
+    <p>INR {{product.Prices[0].Price}}</p><br>
+	<a href="#" (click)="openProductPage(product)">
+	 <ion-chip >
+          <ion-icon name="information" class="searchButton" ></ion-icon>
+        </ion-chip>
+	</a>
+	<a href="#" (click)="addToCart(product.ProductID)">
+   <ion-chip>
+          <ion-icon name="add" class="addToCart"></ion-icon>
+        </ion-chip>
+	</a>
+	<a href="#" (click)="openFavouritesPage()">
+<ion-chip>
+          <ion-icon name="heart" class="addToFavourite" ></ion-icon>
+        </ion-chip>
+  </a>
+	
+  </ion-item>
+</ion-list>
+</ion-col>
+</ion-row>
+</ion-grid>
+
+</ion-content>

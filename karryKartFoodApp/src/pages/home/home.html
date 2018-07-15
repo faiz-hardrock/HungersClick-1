@@ -1,0 +1,227 @@
+<ion-header>
+  <ion-navbar >
+  <ion-grid>
+  <ion-row align-items-center>
+ 
+    <ion-col col-2 align-items-center>
+       
+      <ion-buttons>
+        <button ion-button icon-only menuToggle primary>
+          <ion-icon name='menu' ></ion-icon>
+        </button>
+      </ion-buttons>
+            
+       
+    </ion-col>
+	
+    <ion-col text-right>
+	<a href="#">
+	<ion-chip >
+	  <ion-icon name="pin" class="trackerButton"></ion-icon>
+     </ion-chip>
+	 </a>
+	 <a href="#">
+      <ion-chip >
+	  <ion-icon name="logo-whatsapp" class="whatsapp"></ion-icon>
+     </ion-chip>
+	 </a>
+	 <a href="#">
+	 <ion-chip >
+	  <ion-icon name="notifications" class="notifications"></ion-icon>
+     </ion-chip>
+	 </a>
+	 <a href="#" (click)="openFavouritesPage()">
+	 <ion-chip >
+	  <ion-icon name="heart" class="mealBox"></ion-icon>
+     </ion-chip>
+	 </a>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+  
+  <ion-col col-8>
+  <ion-item>
+    <ion-input type="text" placeholder="Search for meals, snacks etc"></ion-input>
+  </ion-item>
+  </ion-col>
+  <ion-col col-4 >
+  <button ion-button class="loginButton" *ngIf="!isAuthUser" (click)="openLoginPage()" icon-end>Login <ion-icon name="log-in" ></ion-icon> </button>
+  <button ion-button class="loginButton" *ngIf="isAuthUser" >Hi, {{userName}} </button>
+</ion-col>
+  </ion-row>
+  </ion-grid>
+     
+	 
+  </ion-navbar>
+  
+</ion-header>
+
+<ion-content  class="content">
+  <ion-fab bottom right>
+  <button ion-fab color="secondary" (click)="callHungerClick()" > <ion-icon name="call"></ion-icon></button>
+</ion-fab>
+
+<ion-grid>
+<ion-row align-items-start>
+
+<ion-col text-center>
+
+<ion-list>
+<h5 text-center text-uppercase>Food by categories</h5>
+  <ion-item>
+   
+      <ion-avatar item-start text-center>
+     <a href="#" class="imageMenuLink"> <ion-img  src="assets/imgs/curry.jpeg"></ion-img>Indian</a>
+    </ion-avatar>
+  <ion-avatar item-start text-center>
+   <a href="#" class="imageMenuLink">
+      <ion-img  src="assets/imgs/snacks.jpg"></ion-img>
+	  Chinese
+	  </a>
+    </ion-avatar >
+	<ion-avatar item-start text-center>
+     <a href="#" class="imageMenuLink"> <ion-img  src="assets/imgs/cakes.jpg"></ion-img>
+	 Cakes
+	 </a>
+    </ion-avatar>
+	<ion-avatar item-start text-center>
+	<a href="#" class="imageMenuLink">
+      <ion-img  src="assets/imgs/chakhna.jpg"></ion-img>
+	  Starters
+	  </a>
+    </ion-avatar>
+	<ion-avatar item-start text-center>
+		<a href="#" class="imageMenuLink">
+      <ion-img  src="assets/imgs/biryani.jpg"></ion-img>
+	  Biryani
+	  </a>
+    </ion-avatar>
+	
+  </ion-item>
+</ion-list>
+</ion-col>
+</ion-row>
+<h5 text-center text-uppercase>Quick Bites</h5>
+<ion-row>
+
+<ion-col col-6>
+
+<ion-card>
+    <ion-img  src="assets/imgs/snacks.jpg" ></ion-img>
+   <ion-card-content>
+   <button ion-button block icon-left class="buttonMealbox"> <ion-icon name="search"></ion-icon> Snacks</button>
+  </ion-card-content>
+    
+  </ion-card>
+
+</ion-col>
+<ion-col col-6>
+
+
+
+    <ion-card>
+    <ion-img  src="assets/imgs/tiffin.jpg" ></ion-img>
+   <ion-card-content>
+     <button ion-button block icon-left class="buttonMealbox"> <ion-icon name="search"></ion-icon> Tiffin </button>
+  </ion-card-content>
+    
+  </ion-card>
+
+</ion-col>
+</ion-row>
+<ion-row>
+
+<ion-col col-6>
+
+<ion-card>
+    <ion-img  src="assets/imgs/chakhna.jpg" ></ion-img>
+   <ion-card-content>
+   <button ion-button block icon-left class="buttonMealbox"> <ion-icon name="search"></ion-icon> Chakhna</button>
+  </ion-card-content>
+    
+  </ion-card>
+
+</ion-col>
+<ion-col col-6>
+
+
+
+    <ion-card>
+    <ion-img  src="assets/imgs/salads.jpg" ></ion-img>
+   <ion-card-content>
+     <button ion-button block icon-left class="buttonMealbox"> <ion-icon name="search"></ion-icon> Diet Foods </button>
+  </ion-card-content>
+    
+  </ion-card>
+
+</ion-col>
+</ion-row>
+
+<h5 text-center>OFFERS</h5>
+<ion-row>
+
+<ion-col>
+<ion-slides pager>
+
+  <ion-slide >
+   <ion-img  src="assets/imgs/curry.jpeg"></ion-img>
+  </ion-slide>
+
+  <ion-slide >
+    <ion-img  src="assets/imgs/tiffin.jpg"></ion-img>
+  </ion-slide>
+
+  
+
+</ion-slides>
+</ion-col>
+</ion-row>
+<h5 text-center>FOOD FOR YOU</h5>
+<ion-row>
+<ion-col>
+
+
+
+    <ion-card>
+    <ion-img  src="assets/imgs/salads.jpg" ></ion-img>
+   <ion-card-content>
+    <ion-card-title class="cardTitle">
+      
+	 We cook for you
+      </ion-card-title>
+   <p>
+     Tell us about any special kind of food you prefer, as being health consious, we'll deliver it for you.
+    </p>
+   <button ion-button block icon-left color="light"> <ion-icon name="search"></ion-icon> Explore </button>
+  </ion-card-content>
+    
+  </ion-card>
+
+</ion-col>
+</ion-row>
+
+<h5 text-center>COOKING VIDEOS</h5>
+<ion-row>
+<ion-col>
+
+<ion-card>
+    <ion-img  src="assets/imgs/salads.jpg" ></ion-img>
+   <ion-card-content>
+    <ion-card-title class="cardTitle">
+      
+	  Get Cooking Videos from our experts
+      </ion-card-title>
+   <p>
+     See our videos to enhance your cooking skills.
+    </p>
+   <button ion-button block icon-left color="light"> <ion-icon name="search"></ion-icon> Explore </button>
+  </ion-card-content>
+    
+  </ion-card>
+
+  
+
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

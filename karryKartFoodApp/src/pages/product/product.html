@@ -1,0 +1,86 @@
+<!--
+  Generated template for the ProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Product Details </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+ <ion-card>
+  <img  src="assets/imgs/snacks.jpg"/>
+  <ion-card-content>
+    <ion-card-title>
+	
+      {{prod.Name}}
+      </ion-card-title>
+	  <ion-row>
+	  <ion-col>
+	  <ion-chip color="secondary">
+  <ion-label>Veg</ion-label>
+</ion-chip>
+ <ion-chip color="dark">
+  <ion-label>Indian</ion-label>
+</ion-chip>
+</ion-col>
+</ion-row>
+<ion-row>
+<ion-col>
+<ion-chip class="price">
+	  <ion-label>INR {{prod.Prices[0].Price}} </ion-label>
+	  </ion-chip>
+	  </ion-col>
+	  <ion-col>
+	  <a href="#" >
+   <ion-chip>
+          <ion-icon name="add" class="addToCart"></ion-icon>
+        </ion-chip>
+	</a>
+	<a href="#" >
+<ion-chip>
+          <ion-icon name="heart" class="addToFavourite" ></ion-icon>
+        </ion-chip>
+  </a>
+	  </ion-col>
+	  </ion-row>
+	  <hr />
+	  <h5 color="primary">DETAILS</h5>
+    <p>
+	<br>
+      {{prod.Description}}
+    </p>
+	<hr />
+	<h5 color="primary">FEATURES / INGREDIENTS</h5>
+	<p>
+	<br>
+	<ion-list>
+	<ion-item *ngFor="let feature of prod.Features">
+	<ion-label>{{feature.Feature}}</ion-label>
+	</ion-item>
+	</ion-list>
+	</p>
+  </ion-card-content>
+   <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>12 Likes</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>4 Comments</div>
+      </button>
+    </ion-col>
+    
+  </ion-row>
+</ion-card>
+</ion-content>

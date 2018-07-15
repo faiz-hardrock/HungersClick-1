@@ -1,0 +1,107 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login/Signup</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="login">
+      Login
+    </ion-segment-button>
+    <ion-segment-button value="signup">
+      Signup
+    </ion-segment-button>
+    
+  </ion-segment>
+  <div *ngIf="login">
+    <ion-grid>
+      <ion-row>
+      <ion-col>
+          <ion-item>
+              <ion-label color="dark" floating>Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email" clearInput></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+            <ion-label color="dark" floating>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="value" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row padding>
+      <ion-col>
+          <button ion-button color="light" (click)="loginUser()" icon-end>Login <ion-icon name="log-in" ></ion-icon> </button>
+          <br/><br/>
+          <a (click)="goToForgotPassword()" class="forgotPassword" icon-end>Forgot Password <ion-icon name="unlock" ></ion-icon> </a>
+      </ion-col>
+    </ion-row>
+   
+    
+    </ion-grid>
+  </div>
+  <div *ngIf="signup">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label color="dark" floating>Name</ion-label>
+                <ion-input type="text" [(ngModel)]="signUpName" clearInput></ion-input>
+                </ion-item>
+            </ion-col>
+          </ion-row>
+      <ion-row>
+      <ion-col>
+          <ion-item>
+              <ion-label color="dark" floating>Email</ion-label>
+          <ion-input type="email" [(ngModel)]="signUpEmail" clearInput></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+            <ion-label color="dark" floating>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="SignUpValue" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="EnableOtp"> 
+    <ion-row >
+      <ion-col>
+        <ion-item >
+            <ion-label color="dark" floating  >OTP</ion-label>
+          <ion-input type="password" [(ngModel)]="SignUpOtp" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+    <ion-row padding>
+      <ion-col>
+          <div *ngIf="!EnableOtp"> 
+          <button ion-button color="primary" (click)="signUpUser()" icon-end>Sign Up <ion-icon name="person-add" ></ion-icon> </button>
+          </div>
+          <div *ngIf="EnableOtp"> 
+          <ion-label color="info">{{signUpMessage}}</ion-label>
+          <button ion-button color="warning" (click)="verifyUser()" icon-end>Verify Me <ion-icon name="finger-print" ></ion-icon> </button>
+          </div>
+      </ion-col>
+    </ion-row>
+  
+    </ion-grid>
+  
+  </div>
+  
+</ion-content>
