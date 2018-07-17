@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Spinner } from 'ionic-angular';
+import { AuthenticationProvider } from '../../providers/authentication/authentication';
 
+import { SpinnerProvider } from '../../providers/spinner/spinner';
 /**
  * Generated class for the ForgotpasswordPage page.
  *
@@ -16,11 +18,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ForgotpasswordPage {
   enableOtp:boolean=false;
   enableChangePassword:boolean=false;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  enableMsg:boolean=false;
+  forgotMessage:string=null;
+  email:string=null;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider:AuthenticationProvider,private spinnerProvider:SpinnerProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgotpasswordPage');
+  }
+
+  checkForValidUser(){
+    if(this.email!=null || this.email.length!=0){
+      this.authProvider.forgotPassword(this.email).then(result=>{
+        if(result!=false){
+          //enable otp panel
+        }
+      })
+    }
   }
 
 }

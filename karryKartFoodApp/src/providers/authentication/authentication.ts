@@ -93,4 +93,14 @@ export class AuthenticationProvider {
         });
     });
   }
+
+  forgotPassword(key){
+    return new Promise(resolve => {
+      this.http.get(this.configurationProvider.apiurl +'/ForgotPassword?key='+key).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
 }
