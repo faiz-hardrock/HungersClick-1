@@ -103,4 +103,44 @@ export class AuthenticationProvider {
       });
     });
   }
+
+  verifyForgotPasswordUser(key,otp){
+
+    var user = {
+      'user':key,
+      'Otp':otp
+    };
+
+    return new Promise((resolve, reject) => {
+      this.http.post(this.configurationProvider.apiurl+'/SignUp', JSON.stringify(user),{ 
+        headers: { 
+           'Content-Type': 'application/json'
+        }
+     })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  changePassword(email,nP){
+      var user = {
+        'user':email,
+        'value':nP
+      };
+      return new Promise((resolve, reject) => {
+        this.http.put(this.configurationProvider.apiurl+'/SignUp', JSON.stringify(user),{ 
+          headers: { 
+             'Content-Type': 'application/json'
+          }
+       })
+          .subscribe(res => {
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      });
+  }
 }
