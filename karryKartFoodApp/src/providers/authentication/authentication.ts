@@ -112,7 +112,7 @@ export class AuthenticationProvider {
     };
 
     return new Promise((resolve, reject) => {
-      this.http.post(this.configurationProvider.apiurl+'/SignUp', JSON.stringify(user),{ 
+      this.http.post(this.configurationProvider.apiurl+'/ForgotPassword', JSON.stringify(user),{ 
         headers: { 
            'Content-Type': 'application/json'
         }
@@ -128,10 +128,10 @@ export class AuthenticationProvider {
   changePassword(email,nP){
       var user = {
         'user':email,
-        'value':nP
+        'pwd':nP
       };
       return new Promise((resolve, reject) => {
-        this.http.put(this.configurationProvider.apiurl+'/SignUp', JSON.stringify(user),{ 
+        this.http.put(this.configurationProvider.apiurl+'/ForgotPassword', JSON.stringify(user),{ 
           headers: { 
              'Content-Type': 'application/json'
           }

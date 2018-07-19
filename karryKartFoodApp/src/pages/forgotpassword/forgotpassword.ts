@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Spinner } from 'ionic-angular';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 
 import { SpinnerProvider } from '../../providers/spinner/spinner';
+import { AlertProvider } from '../../providers/alert/alert';
 /**
  * Generated class for the ForgotpasswordPage page.
  *
@@ -24,7 +25,9 @@ export class ForgotpasswordPage {
   otpValue:string=null;
   pValue:string=null;
   cValue:string=null;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authProvider:AuthenticationProvider,private spinnerProvider:SpinnerProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+              private authProvider:AuthenticationProvider,private spinnerProvider:SpinnerProvider,
+              private alertProvider:AlertProvider  ) {
   }
 
   ionViewDidLoad() {
@@ -66,8 +69,20 @@ export class ForgotpasswordPage {
   }
 
   changePassword(){
+    this.spinnerProvider.LoadSpinner();
     if(this.pValue==this.cValue){
-      
+      this.authProvider.changePassword(this.email,this.cValue).then(result=>{
+        if(result!=null){
+          if(result){
+            this.spinnerProvider.DestroySpinner();
+            this.alertProvider.presentToast('Your password has been changed successfully. Please try login now.',2000,'bottom'); 
+            this.navCtrl.pop();
+          }else{
+            this.forgotMessage='There was a problem occurred, while changing your password. Please try again later.';
+          }
+
+        }
+      });
     }
 
   }
