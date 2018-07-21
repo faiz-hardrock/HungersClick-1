@@ -14,3 +14,14 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.validator-error{
+color:#E00F0F;
+
+}
+.error{
+    color:#E00F0F;
+
+}
+.validation-error-padding{
+    margin-left: 5%
+}

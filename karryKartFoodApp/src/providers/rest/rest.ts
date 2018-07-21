@@ -11,9 +11,9 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class RestProvider {
 
-//apiUrl = 'http://testapi.karrykart.com/api';
+apiUrl = 'http://testapi.karrykart.com/api';
 
-public apiUrl = 'http://localhost:13518/api';
+//public apiUrl = 'http://localhost:13518/api';
 cartID:any;
 
   constructor(public http: HttpClient,public storage: Storage, public events: Events) {

@@ -4,6 +4,8 @@ import { AuthenticationProvider } from '../../providers/authentication/authentic
 
 import { SpinnerProvider } from '../../providers/spinner/spinner';
 import { AlertProvider } from '../../providers/alert/alert';
+import { MessagesProvider } from '../../providers/messages/messages';
+import { FormControl, FormBuilder, FormGroup, Validators,ValidatorFn,AbstractControl } from '@angular/forms';
 /**
  * Generated class for the ForgotpasswordPage page.
  *
@@ -21,13 +23,29 @@ export class ForgotpasswordPage {
   enableChangePassword:boolean=false;
   enableMsg:boolean=false;
   forgotMessage:string=null;
-  email:string=null;
-  otpValue:string=null;
-  pValue:string=null;
-  cValue:string=null;
+  email:string='';
+  otpValue:string='';
+  pValue:string='';
+  cValue:string='';
+  forgotPasswordForm:FormGroup;
+  emailValidation:any;
+  otpValidation:any;
+  pwdValidation:any;
+  //setPasswordForm:FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               private authProvider:AuthenticationProvider,private spinnerProvider:SpinnerProvider,
-              private alertProvider:AlertProvider  ) {
+              private alertProvider:AlertProvider, private formBuilder: FormBuilder, private messageProvider:MessagesProvider  ) {
+                this.emailValidation=this.messageProvider.email_validation;
+                this.otpValidation=this.messageProvider.otp_validation;
+                this.pwdValidation = this.messageProvider.password_validation;  
+                this.forgotPasswordForm = this.formBuilder.group({
+                  email: ['',Validators.compose([Validators.email,Validators.required])],
+                  otpValue:  ['',Validators.required],
+                  pValue: ['',Validators.compose([Validators.required,Validators.minLength(8)])],
+                  cValue: ['',Validators.compose([Validators.required,Validators.minLength(8)])]
+                 });
+                
+
   }
 
   ionViewDidLoad() {
@@ -35,8 +53,10 @@ export class ForgotpasswordPage {
   }
 
   checkForValidUser(){
-    this.spinnerProvider.LoadSpinner();
-    if(this.email!=null || this.email.length!=0){
+    
+    if(this.email.length>0){
+      
+      this.spinnerProvider.LoadSpinner();
       this.authProvider.forgotPassword(this.email).then(result=>{
         if(result!=null){
           if(result){
@@ -48,12 +68,15 @@ export class ForgotpasswordPage {
         }
         this.spinnerProvider.DestroySpinner();
       })
-    }
+    
+  }
   }
 
   verifyUser(){
-    this.spinnerProvider.LoadSpinner();
+    
+    
     if(this.email.length>0 && this.otpValue.length>0){
+      this.spinnerProvider.LoadSpinner();
     this.authProvider.verifyForgotPasswordUser(this.email,this.otpValue).then(result=>{
       if(result!=null){
         if(result){
@@ -69,8 +92,9 @@ export class ForgotpasswordPage {
   }
 
   changePassword(){
-    this.spinnerProvider.LoadSpinner();
+   
     if(this.pValue==this.cValue){
+      this.spinnerProvider.LoadSpinner();
       this.authProvider.changePassword(this.email,this.cValue).then(result=>{
         if(result!=null){
           if(result){

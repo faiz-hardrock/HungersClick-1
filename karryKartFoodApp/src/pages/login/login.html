@@ -24,26 +24,38 @@
     
   </ion-segment>
   <div *ngIf="login">
+      <form [formGroup]="userLogin">
     <ion-grid>
       <ion-row>
       <ion-col>
           <ion-item>
               <ion-label color="dark" floating>Email</ion-label>
-          <ion-input type="email" [(ngModel)]="email" clearInput></ion-input>
-          </ion-item>
+          <ion-input type="email" [(ngModel)]="email" [formControl]="userLogin.controls['email']" clearInput></ion-input>
+         
+        </ion-item>
+        <div *ngIf="!userLogin.controls.email.valid && userLogin.controls.email.dirty" class="validator-error validation-error-padding">
+            Please enter a valid email.
+          </div>  
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-item>
-            <ion-label color="dark" floating>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="value" clearInput></ion-input>
+          <ion-label color="dark" floating>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="value" [formControl]="userLogin.controls['value']" clearInput></ion-input>
         </ion-item>
+        <div *ngIf="!userLogin.controls.value.valid && userLogin.controls.value.dirty" class="validator-error validation-error-padding">
+            Please enter your password.
+          </div>
+
       </ion-col>
     </ion-row>
     <ion-row padding>
       <ion-col>
-          <button ion-button color="light" (click)="loginUser()" icon-end>Login <ion-icon name="log-in" ></ion-icon> </button>
+          <div *ngIf="loginMsgEnabled"> 
+              <ion-label ion-text color="{{msgClass}}">{{loginMessage}}</ion-label>
+          </div>
+          <button ion-button color="light" (click)="loginUser()"  [disabled]="!userLogin.valid" icon-end>Login <ion-icon name="log-in" ></ion-icon> </button>
           <br/><br/>
           <a (click)="goToForgotPassword()" class="forgotPassword" icon-end>Forgot Password <ion-icon name="unlock" ></ion-icon> </a>
       </ion-col>
@@ -51,31 +63,42 @@
    
     
     </ion-grid>
+    </form>
   </div>
   <div *ngIf="signup">
+      <form [formGroup]="userSignUp">
     <ion-grid>
         <ion-row>
             <ion-col>
                 <ion-item>
                     <ion-label color="dark" floating>Name</ion-label>
-                <ion-input type="text" [(ngModel)]="signUpName" clearInput></ion-input>
+                <ion-input type="text" [(ngModel)]="signUpName" [formControl]="userSignUp.controls['signUpName']" clearInput></ion-input>
                 </ion-item>
+                <div *ngIf="!userSignUp.controls.signUpName.valid && userSignUp.controls.signUpName.dirty" class="validator-error validation-error-padding">
+                   Please provide your name.
+                  </div>  
             </ion-col>
           </ion-row>
       <ion-row>
       <ion-col>
           <ion-item>
               <ion-label color="dark" floating>Email</ion-label>
-          <ion-input type="email" [(ngModel)]="signUpEmail" clearInput></ion-input>
+          <ion-input type="email" [(ngModel)]="signUpEmail"  [formControl]="userSignUp.controls['signUpEmail']" clearInput></ion-input>
           </ion-item>
+          <div *ngIf="!userSignUp.controls.signUpEmail.valid && userSignUp.controls.signUpEmail.dirty" class="validator-error validation-error-padding">
+              Please provide valid email address.
+             </div> 
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-item>
-            <ion-label color="dark" floating>Password</ion-label>
-          <ion-input type="password" [(ngModel)]="SignUpValue" clearInput></ion-input>
+            <ion-label color="dark" floating>Set Password</ion-label>
+          <ion-input type="password" [(ngModel)]="SignUpValue"  [formControl]="userSignUp.controls['SignUpValue']" clearInput></ion-input>
         </ion-item>
+        <div *ngIf="!userSignUp.controls.SignUpValue.valid && userSignUp.controls.SignUpValue.dirty" class="validator-error validation-error-padding">
+           Please set a password.
+           </div> 
       </ion-col>
     </ion-row>
     <div *ngIf="EnableOtp"> 
@@ -83,25 +106,29 @@
       <ion-col>
         <ion-item >
             <ion-label color="dark" floating  >OTP</ion-label>
-          <ion-input type="password" [(ngModel)]="SignUpOtp" clearInput></ion-input>
+          <ion-input type="password" [(ngModel)]="SignUpOtp" [formControl]="userSignUp.controls['SignUpOtp']" clearInput></ion-input>
         </ion-item>
+      
       </ion-col>
     </ion-row>
   </div>
     <ion-row padding>
       <ion-col>
+        <div *ngIf="enableSignUpMessage">
+            <ion-label ion-text color="{{msgSignUpColor}}">{{signUpMessage}}</ion-label>
+        </div>
           <div *ngIf="!EnableOtp"> 
-          <button ion-button color="primary" (click)="signUpUser()" icon-end>Sign Up <ion-icon name="person-add" ></ion-icon> </button>
+          <button ion-button color="primary" (click)="signUpUser()" [disabled]="!userSignUp.controls.SignUpValue.valid || !userSignUp.controls.signUpEmail.valid || !userSignUp.controls.SignUpValue.valid" icon-end>Sign Up <ion-icon name="person-add" ></ion-icon> </button>
           </div>
           <div *ngIf="EnableOtp"> 
-          <ion-label color="info">{{signUpMessage}}</ion-label>
-          <button ion-button color="warning" (click)="verifyUser()" icon-end>Verify Me <ion-icon name="finger-print" ></ion-icon> </button>
+          
+          <button ion-button color="warning" (click)="verifyUser()" [disabled]="!userSignUp.controls.SignUpOtp.valid" icon-end>Verify Me <ion-icon name="finger-print" ></ion-icon> </button>
           </div>
       </ion-col>
     </ion-row>
   
     </ion-grid>
-  
+  </form>
   </div>
   
 </ion-content>

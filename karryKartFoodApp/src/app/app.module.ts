@@ -25,6 +25,8 @@ import { MenuHeaderComponent } from '../components/menu-header/menu-header';
 import { SpinnerProvider } from '../providers/spinner/spinner';
 import { AlertProvider } from '../providers/alert/alert';
 import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
+import { ValidatorProvider } from '../providers/validator/validator';
+import { MessagesProvider } from '../providers/messages/messages';
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
     ConfigurationProvider,
     StoreProvider,
     SpinnerProvider,
-    AlertProvider
+    AlertProvider,
+    ValidatorProvider,
+    MessagesProvider
   ]
 })
 export class AppModule {}
