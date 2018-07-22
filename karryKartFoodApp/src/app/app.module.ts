@@ -22,6 +22,7 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
 import { ConfigurationProvider } from '../providers/configuration/configuration';
 import { StoreProvider } from '../providers/store/store';
 import { MenuHeaderComponent } from '../components/menu-header/menu-header';
+import {MainHeaderComponent} from '../components/main-header/main-header';
 import { SpinnerProvider } from '../providers/spinner/spinner';
 import { AlertProvider } from '../providers/alert/alert';
 import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
@@ -41,11 +42,12 @@ import { MessagesProvider } from '../providers/messages/messages';
   LoginPage,
   CheckoutPage,
   ForgotpasswordPage,
-  MenuHeaderComponent
+  MenuHeaderComponent,
+  MainHeaderComponent
   ],
   imports: [
     BrowserModule,
-	HttpClientModule,
+	  HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -53,22 +55,23 @@ import { MessagesProvider } from '../providers/messages/messages';
   entryComponents: [
     MyApp,
     HomePage,
-	TabsPage,
-	CartPage,
-	FoodmenuPage,
-	FavouritesPage,
-	TiffinPage,
-	ProductPage,
-  LoginPage,
-  CheckoutPage,
-  ForgotpasswordPage,
-  MenuHeaderComponent
+    TabsPage,
+    CartPage,
+    FoodmenuPage,
+    FavouritesPage,
+    TiffinPage,
+    ProductPage,
+    LoginPage,
+    CheckoutPage,
+    ForgotpasswordPage,
+    MenuHeaderComponent,
+    MainHeaderComponent
   ],
   providers: [  
     StatusBar,
     SplashScreen,
     IonicStorageModule,
-	CallNumber,
+	  CallNumber,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
     AuthenticationProvider,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController,Events } from 'ionic-angular';
 
-//import { LoginPage } from '../../login/login';
+//import { LoginPage } from '../../pages/login/login';
 import {ViewChild} from '@angular/core';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { StoreProvider } from '../../providers/store/store';

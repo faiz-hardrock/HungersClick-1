@@ -62,7 +62,7 @@
   
   <ion-col>
   
-  
+      <a href="#" (click)="goToCheckout(userCart)" class="searchButton"  ion-button full >Checkout</a>
   <h6 ion-text color="dark" text-uppercase>Your Order</h6>
   
    
@@ -71,31 +71,35 @@
       <ion-row justify-content-end>
           <ion-col col-4>
        <ion-thumbnail item-start>
-         <img src="assets/imgs/snacks.jpg">
+         <img src="{{p.Images.length>0?p.Images[0].ImageLink:'assets/imgs/snacks.jpg'}}">
         </ion-thumbnail>
         </ion-col>
         <ion-col col-5>
         <h2>{{p.Name}}</h2>
-        
+        <p>INR {{p.Prices[0].Price}}</p>
+       
+        <div class="cartOptions">
         <a href="#" (click)="openProductPage(p)">
-         <ion-chip >
-              <ion-icon name="trash" class="searchButton" ></ion-icon>
-            </ion-chip>
-        </a>
-        <a href="#" (click)="addToCart(p.ProductID)">
+            <ion-chip >
+                 <ion-icon name="trash" class="searchButton" ></ion-icon>
+               </ion-chip>
+           </a>
+           <a href="#" (click)="openFavouritesPage()">
        <ion-chip>
-              <ion-icon name="add" class="addToCart"></ion-icon>
-            </ion-chip>
-        </a>
-        <a href="#" (click)="openFavouritesPage()">
-    <ion-chip>
-              <ion-icon name="heart" class="addToFavourite" ></ion-icon>
-            </ion-chip>
-      </a>
+                 <ion-icon name="heart" class="addToFavourite" ></ion-icon>
+               </ion-chip>
+         </a>
+        </div>
     </ion-col>
     
-      <ion-col class="price">
-      <p><br/><br/><br/><br/>INR {{p.Prices[0].Price}}</p>
+      <ion-col >
+          <div class="quantity">
+            
+            <button class="btnDecrease" (click)="updateProductQuantity(p,userCart,false)">-</button>
+            <span >{{p.QuantitySelected}}</span>
+            <button class="btnIncrease" (click)="updateProductQuantity(p,userCart,true)">+</button>
+          </div>
+    
     </ion-col>
     </ion-row>
       </ion-item>
@@ -157,12 +161,8 @@
       </ion-col>
   </ion-row>
   </ion-grid>
-  <a href="#" (click)="goToCheckout(userCart)"  class="searchButton"  ion-button full >
-      
-      Checkout 
-      
-        </a>
-  <!-- <button (onclick)="goToCheckout(userCart)" ion-button full class="searchButton" >Checkout <ion-icon name="cart"></ion-icon></button> -->
+  <!-- <a href="#" (click)="goToCheckout(userCart)" class="searchButton"  ion-button full >Checkout</a> -->
+  
         
 
   </ion-content>

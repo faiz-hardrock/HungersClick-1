@@ -58,4 +58,30 @@ page-cart{
         color:#00838F;
     }
 
+    .quantity{
+        border:1px solid #acaaaa;
+        padding:1%;
+        padding-left: 5%;
+        padding-right: 6%;
+        padding-bottom:3%;
+        border-radius: 5%;
+        vertical-align : bottom;
+        bottom:0;
+        position: absolute;
+    }
+
+    .btnIncrease{
+        background-color: #fff;
+        color:rgb(19, 102, 22);
+    }
+
+    .btnDecrease{
+        background-color: #fff;
+        color:rgb(189, 7, 7);
+    }
+
+    .cartOptions{
+        bottom:0;
+        position: absolute;
+    }
 }
