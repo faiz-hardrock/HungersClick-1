@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
-import { NavController,LoadingController } from 'ionic-angular';
+import { NavController,LoadingController,Events } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
 import { CheckoutPage } from '../../pages/checkout/checkout';
 import { SpinnerProvider } from '../../providers/spinner/spinner';
+import { HomePage } from '../home/home';
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html'
@@ -13,15 +14,16 @@ export class CartPage {
   userCart:any={};
   cartID:any;
   cart:any;
+  isCartEmpty:boolean=false;
   public loading = this.loadingCtrl.create({
     content: `
              Please wait...`
     
   });
   constructor(public navCtrl: NavController,public storage:Storage, public restProvider:RestProvider,
-    public loadingCtrl:LoadingController,private spinnerProvider: SpinnerProvider) {
-      this.getCartDetails(true);
-  //  this.storage.remove('cart');
+    public loadingCtrl:LoadingController,private spinnerProvider: SpinnerProvider, public event:Events) {
+    this.getCartDetails(true);
+   // this.storage.remove('cart');
   }
 
   getCartDetails(showLoader)
@@ -34,13 +36,15 @@ export class CartPage {
 
     this.restProvider.getCart(cart.CartID)
     .then(data => {
-      
-     // console.log(data);
       this.userCart = data;
-      
+      this.isCartEmpty=false;
+
       if(showLoader)
 	      this.spinnerProvider.DestroySpinner();
     });
+  }else{
+    
+    this.isCartEmpty=true;
   }
   });
   
@@ -70,6 +74,46 @@ export class CartPage {
       this.getCartDetails(false);
     })
   }
+  }
+
+  deleteCart(userCart,productID)
+  {
+    this.spinnerProvider.LoadSpinner();
+    this.restProvider.deleteCart(userCart.CartID).then(result=>{
+      if(result==null)
+      {
+        this.storage.remove('cart');
+        this.isCartEmpty=true;  
+        this.event.publish('cart:udpated',0);
+      }else{
+        this.isCartEmpty=false;
+      }
+    });
+
+    this.spinnerProvider.DestroySpinner();
+  }
+
+  deleteProduct(userCart,product)
+  {
+    this.spinnerProvider.DestroySpinner();
+
+    this.restProvider.deleteProduct(userCart.CartID,product.ProductID).then(result=>{
+      console.log(result);
+      if(result!=null)
+      {
+        this.restProvider.setCart(result);
+        this.getCartDetails(false);
+      }else{
+        this.storage.remove('cart');
+        this.event.publish('cart:udpated',0);
+        this.isCartEmpty=true;
+      }
+    });
+  }
+
+  goToHome(){
+
+    this.navCtrl.setRoot(HomePage);
   }
   
 }

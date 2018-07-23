@@ -11,9 +11,9 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class RestProvider {
 
-//apiUrl = 'http://testapi.karrykart.com/api';
+apiUrl = 'http://testapi.karrykart.com/api';
 
-public apiUrl = 'http://localhost:13518/api';
+//public apiUrl = 'http://localhost:13518/api';
 cartID:any;
 
   constructor(public http: HttpClient,public storage: Storage, public events: Events) {
@@ -55,6 +55,30 @@ cartID:any;
            'Content-Type': 'application/json'
         }
      })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
+  deleteCart(cartID)
+  {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.apiUrl+'/cart?CartID='+cartID+'&ProductID='+'559B9891-FE58-49DD-A357-B7ADC2CC339A')
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  deleteProduct(cartID,productID){
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.apiUrl+'/cart?CartID='+cartID+'&ProductID='+productID)
         .subscribe(res => {
           resolve(res);
         }, (err) => {

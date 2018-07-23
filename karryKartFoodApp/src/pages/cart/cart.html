@@ -53,17 +53,15 @@
   </ion-header>
   
   <ion-content  class="content">
-    <!-- <ion-fab bottom right>
-    <button ion-fab color="secondary" (click)="callHungerClick()" > <ion-icon name="call"></ion-icon></button>
-  </ion-fab> -->
-  
+   
+  <div *ngIf="!isCartEmpty">
   <ion-grid>
   <ion-row align-items-start>
   
   <ion-col>
   
-      <a href="#" (click)="goToCheckout(userCart)" class="searchButton"  ion-button full >Checkout</a>
-  <h6 ion-text color="dark" text-uppercase>Your Order</h6>
+  <a href="#" (click)="goToCheckout(userCart)" class="searchButton"  ion-button full >Checkout</a>
+  <h6 ion-text color="dark" text-uppercase>Your Order <button (click)="deleteCart(userCart, userCart.Products)"> <ion-icon name="trash" ></ion-icon></button></h6>
   
    
   <ion-list>
@@ -79,7 +77,12 @@
         <p>INR {{p.Prices[0].Price}}</p>
        
         <div class="cartOptions">
-        <a href="#" (click)="openProductPage(p)">
+            <a href="#" (click)="openProductPage(product)">
+                <ion-chip >
+                       <ion-icon name="information" class="searchButton" ></ion-icon>
+                     </ion-chip>
+               </a>
+        <a href="#" (click)="deleteProduct(userCart,p)">
             <ion-chip >
                  <ion-icon name="trash" class="searchButton" ></ion-icon>
                </ion-chip>
@@ -163,6 +166,10 @@
   </ion-grid>
   <!-- <a href="#" (click)="goToCheckout(userCart)" class="searchButton"  ion-button full >Checkout</a> -->
   
-        
+</div>
+<div *ngIf="isCartEmpty">
+<ion-label text-center>Your cart is empty.</ion-label>
+<a href="#" (click)="goToHome()" class="searchButton"  ion-button full >Start Ordering</a>
+</div>    
 
   </ion-content>
