@@ -47,7 +47,7 @@ export class FoodmenuPage {
     this.restProvider.getProducts()
     .then(data => {
       this.products = data;
-      //console.log(this.products);
+      console.log(this.products);
 	  this.loading.dismiss();
     });
   }

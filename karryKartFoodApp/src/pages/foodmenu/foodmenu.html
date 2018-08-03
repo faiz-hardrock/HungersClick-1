@@ -63,7 +63,7 @@
   <ion-item *ngFor="let product of products">
   
    <ion-thumbnail item-start>
-     <img src="assets/imgs/snacks.jpg">
+    <img src="{{product.Images.length>0?product.Images[0].ImageLink:'assets/imgs/snacks.jpg'}}">
     </ion-thumbnail>
 	<h2>{{product.Name}}</h2>
     <p>INR {{product.Prices[0].Price}}</p><br>

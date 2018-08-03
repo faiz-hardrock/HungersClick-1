@@ -21,6 +21,7 @@ export class CheckoutPage {
  contact:any;
  name:any;
   constructor(public navCtrl: NavController,public storage: Storage, public toastCtrl: ToastController,public restProvider:RestProvider, public navParams: NavParams) {
+    
   }
 
   ionViewDidLoad() {

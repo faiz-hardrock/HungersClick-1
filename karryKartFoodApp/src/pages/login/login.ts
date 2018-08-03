@@ -7,6 +7,7 @@ import { ValidatorProvider } from '../../providers/validator/validator';
 import { ForgotpasswordPage } from '../../pages/forgotpassword/forgotpassword';
 import { MessagesProvider } from '../../providers/messages/messages';
 import { FormControl, FormBuilder, FormGroup, Validators,ValidatorFn,AbstractControl } from '@angular/forms';
+import { CheckoutPage } from '../checkout/checkout';
 /**
  * Generated class for the LoginPage page.
  *
@@ -41,6 +42,7 @@ export class LoginPage {
   loginMessage:string='';
   msgSignUpColor:string='';
   enableSignUpMessage:boolean=false;
+  fromCart:boolean=false;
   constructor(public navCtrl: NavController, public toastCtrl: ToastController,  
     public navParams: NavParams, public authProvider:AuthenticationProvider, 
     public storeProvider:StoreProvider, public spinnerProvider: SpinnerProvider, 
@@ -57,6 +59,8 @@ export class LoginPage {
         signUpName:  ['',Validators.required],
         SignUpOtp:  ['',Validators.required]
       });
+
+     this.fromCart=this.navParams.get('fromCart');
   }
 
   ionViewDidLoad() {
@@ -91,22 +95,30 @@ export class LoginPage {
       if(result!=null)
         this.loginDetails=result;
         
-        
-        console.log(this.loginDetails);
+       console.log(this.loginDetails);
 
     if(this.loginDetails.Error==null){
       
     this.storeProvider.setStore("user",this.loginDetails);
     this.events.publish('user:logged', this.loginDetails);
     this.spinnerProvider.DestroySpinner(); 
-    this.navCtrl.pop();
-    }else if(this.loginDetails.Error=='invalid_user'){
-      console.log('I m prob');
+    if(this.fromCart)
+    {
+      this.navCtrl.setRoot(CheckoutPage);
+    }
+    else
+    {
+      this.navCtrl.pop();
+    }
+    }
+    else if(this.loginDetails.Error=='invalid_user'){
+     
       this.loginMsgEnabled=true;
       this.msgClass="danger";
       this.loginMessage= this.messageProvider.invalid_user;
       this.spinnerProvider.DestroySpinner(); 
-    }else{
+    }
+    else{
       //handle some other error
     }
     });
@@ -114,6 +126,8 @@ export class LoginPage {
 
   //}
   }
+
+
   signUpUser(){
     if(this.signUpEmail.length>0 && this.signUpName.length>0 && this.SignUpValue.length>0){
      // if(this.validationsProvider.validateEmail(this.email)){

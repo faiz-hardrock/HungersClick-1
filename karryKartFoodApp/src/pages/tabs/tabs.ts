@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Spinner } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
@@ -8,6 +8,7 @@ import { CartPage } from '../cart/cart';
 import { TiffinPage } from '../tiffin/tiffin';
 import { FoodmenuPage } from '../foodmenu/foodmenu';
 import { RestProvider } from '../../providers/rest/rest';
+import { SpinnerProvider } from '../../providers/spinner/spinner';
 import { Storage } from '@ionic/storage';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
@@ -23,8 +24,12 @@ tabCart = CartPage;
 //tabUser = UserPage;
 tabTiffin = TiffinPage;
 tabFoodmenu = FoodmenuPage;
-
-constructor(public restProvider: RestProvider,private storage: Storage,public events: Events){
+userCart:any={};
+  cartID:any;
+  cart:any;
+  isCartEmpty:boolean=false;
+constructor(public restProvider: RestProvider,private storage: Storage,public events: Events,
+			public spinnerProvider:SpinnerProvider){
  //this.restProvider.removeCart();
  //this.getCartCount();
  events.subscribe('cart:udpated', (count) => {
@@ -50,6 +55,30 @@ getCartCount(){
 	});
   
  
+}
+
+getCartDetails(showLoader)
+{
+  console.log('Calling from tabs');
+  this.storage.get('cart').then((cart) => {
+	if(cart!=null){
+	 if(showLoader)
+	  this.spinnerProvider.LoadSpinner();
+
+  this.restProvider.getCart(cart.CartID)
+  .then(data => {
+	this.userCart = data;
+	this.isCartEmpty=false;
+
+	if(showLoader)
+		this.spinnerProvider.DestroySpinner();
+  });
+}else{
+  
+  this.isCartEmpty=true;
+}
+});
+
 }
 
 

@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import { NavController,LoadingController,Events } from 'ionic-angular';
+import { NavController,LoadingController,Events,ActionSheetController  } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
 import { CheckoutPage } from '../../pages/checkout/checkout';
 import { SpinnerProvider } from '../../providers/spinner/spinner';
 import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html'
@@ -21,9 +22,45 @@ export class CartPage {
     
   });
   constructor(public navCtrl: NavController,public storage:Storage, public restProvider:RestProvider,
-    public loadingCtrl:LoadingController,private spinnerProvider: SpinnerProvider, public event:Events) {
+    public loadingCtrl:LoadingController,private spinnerProvider: SpinnerProvider, public event:Events,
+    private actionSheetCtrl:ActionSheetController) {
     this.getCartDetails(true);
    // this.storage.remove('cart');
+  }
+
+  presentActionSheet() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Please choose',
+      buttons: [
+        {
+          text: 'Sign In',
+          icon:'log-in',
+          role: 'signin',
+          cssClass:'actionButtons',
+          handler: () => {
+            this.navCtrl.push(LoginPage,{fromCart:true});
+          }
+        },{
+          text: 'Continue as Guest',
+          icon:'person',
+          cssClass:'actionButtons',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          icon:'close-circle',
+          cssClass:'actionButtons',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ],
+      cssClass:'actionPanel'
+    });
+    
+    actionSheet.present();
   }
 
   getCartDetails(showLoader)
@@ -52,8 +89,18 @@ export class CartPage {
 
   goToCheckout(cart)
   {
-    console.log("Go to checkout");
-    this.navCtrl.push(CheckoutPage,{data:cart.cartID});
+    this.storage.get('user').then((result)=>{
+      if(result!=null){
+      //this.authProvider.checkLogin(result).then(res=>{
+      //})
+      this.navCtrl.push(CheckoutPage,{data:cart.cartID});
+    }
+    else
+    {
+      this.presentActionSheet();
+    }
+    });
+    
   }
 
   updateProductQuantity(product,userCart,isIncrement){
