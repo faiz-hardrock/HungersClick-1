@@ -27,15 +27,19 @@ export class CheckoutPage {
  isDetailsExist:boolean=false; 
   constructor(public navCtrl: NavController,public storage: Storage, public toastCtrl: ToastController,
     public restProvider:RestProvider, public navParams: NavParams, private authProvider:AuthenticationProvider) {
-    this.checkUserLogin();
+   
+      if(this.navParams.get("AddressID")!=null)
+        this.checkUserLogin(this.navParams.get("AddressID"));
+      else
+        this.checkUserLogin(-1);
   }
 
-  checkUserLogin()
+  checkUserLogin(addressID)
   {
     this.storage.get('user').then((result)=>{
       if(result!=null){
         this.isLogin=true;
-        this.authProvider.getUserDetails(result.UserID).then(res=>{
+        this.authProvider.getUserDetails(result.UserID,addressID).then(res=>{
         if(res!=null){
           this.userDetails = res;
         }
@@ -63,7 +67,7 @@ export class CheckoutPage {
   }
 
   navigateToAddress(addAddress){
-    this.navCtrl.push(AddressPage,{AddAddress:addAddress,UserDetails:this.userDetails}); 
+    this.navCtrl.push(AddressPage,{AddAddress:addAddress}); 
   }
 
   placeOrder()

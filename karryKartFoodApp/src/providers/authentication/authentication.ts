@@ -144,9 +144,9 @@ export class AuthenticationProvider {
       });
   }
 
-  getUserDetails(userID){
+  getUserDetails(userID,addressID){
     return new Promise(resolve => {
-      this.http.get(this.configurationProvider.apiurl +'/UserDetails?id='+userID).subscribe(data => {
+      this.http.get(this.configurationProvider.apiurl +'/UserDetails?id='+userID+'&AddressID='+addressID).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -169,6 +169,17 @@ export class AuthenticationProvider {
         }, (err) => {
           reject(err);
         });
+    });
+  }
+
+  removeUserAddress(userID, addressID)
+  {
+    return new Promise(resolve => {
+      this.http.delete(this.configurationProvider.apiurl +'/UserDetails?id='+userID+'&AddressID='+addressID).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
     });
   }
 }

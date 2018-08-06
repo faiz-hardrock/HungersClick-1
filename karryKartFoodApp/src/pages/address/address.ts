@@ -5,6 +5,7 @@ import { ValidatorProvider } from '../../providers/validator/validator';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { SpinnerProvider } from '../../providers/spinner/spinner';
 import { CheckoutPage } from '../checkout/checkout';
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the AddressPage page.
  *
@@ -34,19 +35,17 @@ export class AddressPage {
   country:number=-1;
   state:number=-1;
   userDetails = <any>{};
+  isAdd:boolean=false;
+  isEdit:boolean=false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private formBuilder: FormBuilder, 
               private validationsProvider:ValidatorProvider, private authProvider: AuthenticationProvider,
-              private spinnerProvoder:SpinnerProvider ) {
-    console.log(this.navParams.get('AddAddress'));
+              private spinnerProvider:SpinnerProvider,public storage: Storage ) {
+    
     this.IsAddEditAddress=this.navParams.get('AddAddress');
     this.IsSelectAddress=!this.navParams.get('AddAddress');
-    this.userDetails=this.navParams.get('UserDetails');
+    this.checkUserLogin(-1);
 
-   
-    this.firstName = this.userDetails.FirstName;
-    this.lastName=this.userDetails.LastName;
-    this.email=this.userDetails.Email;
-          
     this.addAddress = this.formBuilder.group({
        email: [this.userDetails.Email,Validators.compose([Validators.email,Validators.required])],
        firstName: [this.userDetails.FirstName!=null?this.userDetails.FirstName:'',Validators.compose([Validators.required])],
@@ -64,9 +63,32 @@ export class AddressPage {
 
   }
 
+  checkUserLogin(addressID)
+  {
+    this.spinnerProvider.LoadSpinner();
+    this.storage.get('user').then((result)=>{
+      if(result!=null){
+       
+        this.authProvider.getUserDetails(result.UserID,addressID).then(res=>{
+        if(res!=null){
+          this.userDetails = res;
+        }
+
+        this.firstName = this.userDetails.FirstName;
+        this.lastName=this.userDetails.LastName;
+        this.email=this.userDetails.Email;
+        this.mobile=this.userDetails.Phone;
+
+        console.log(this.userDetails);
+        this.spinnerProvider.DestroySpinner();
+        });
+      }
+    });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddressPage');
-  }
+   }
 
   addUserAddress(){
     var user={
@@ -83,14 +105,15 @@ export class AddressPage {
       'StateID':this.state,
       'CountryID':this.country
     }
-    this.spinnerProvoder.LoadSpinner();
+    this.spinnerProvider.LoadSpinner();
 
     this.authProvider.addUserAddress(user).then(result=>{
       if(result!=null){
         this.userDetails = result;
         this.IsAddEditAddress=false;
         this.IsSelectAddress=true;
-        this.spinnerProvoder.DestroySpinner();
+        this.spinnerProvider.DestroySpinner();
+        this.isAdd=false;
       }
     });
     
@@ -99,6 +122,7 @@ export class AddressPage {
 
   showAddress()
   {
+    this.isEdit=false;
     this.IsAddEditAddress=true;
     this.IsSelectAddress=false;
     this.resetAddressFields();
@@ -106,7 +130,27 @@ export class AddressPage {
     this.lastName=this.userDetails.LastName;
     this.email = this.userDetails.Email;
     this.mobile=this.userDetails.Phone;
+    this.isAdd=true;
   }
+
+  editAddress(addressID)
+  {
+    this.isEdit=true;
+    this.isAdd=false;
+    this.IsAddEditAddress=true;
+    this.IsSelectAddress=false;
+    this.checkUserLogin(addressID); 
+    this.AddressLine1 = this.userDetails.AddressList[0].AddressLine1;
+    this.AddressLine2 = this.userDetails.AddressList[0].AddressLine2;
+    this.landmark = this.userDetails.AddressList[0].LandMark;
+    this.pincode= this.userDetails.AddressList[0].PinCode;
+    this.city=this.userDetails.AddressList[0].CityID;
+    this.state=this.userDetails.AddressList[0].StateID;
+    this.country=this.userDetails.AddressList[0].CountryID;
+  }
+
+
+
   resetAddressFields(){
 
     this.email='';
@@ -126,7 +170,20 @@ export class AddressPage {
   }
 
   selectAddress(addressID){
-    this.navCtrl.pop({AddressID:addressID});
+    this.navCtrl.setRoot(CheckoutPage,{AddressID:addressID});
+  }
+
+  removeAddress(userID,addressID){
+    this.spinnerProvider.LoadSpinner();
+
+    this.authProvider.removeUserAddress(userID, addressID).then(result=>{
+      if(result!=null)
+      {
+        this.userDetails=result;
+        
+      }
+      this.spinnerProvider.DestroySpinner();
+    });
   }
 
 }
