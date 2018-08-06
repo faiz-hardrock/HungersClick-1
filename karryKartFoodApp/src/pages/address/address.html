@@ -1,0 +1,219 @@
+<!--
+  Generated template for the AddressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <ion-title>Address</ion-title>
+        </ion-col>
+        <ion-col>
+          <div *ngIf="!IsAddEditAddress"> 
+            <a href="#" (click)="showAddress()"  class="addAddress" color="dark"  ion-button  icon-end>Add <ion-icon name="add"></ion-icon> </a>
+          </div>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <div *ngIf="IsSelectAddress">
+        
+        Select an address for products delivery:
+        <ion-row>
+            <ion-col>
+                <ion-list>
+                    <ion-item *ngFor="let user of userDetails.AddressList">
+               <ion-card>
+                   <ion-card-header>
+                  
+                   </ion-card-header>
+                   <ion-card-content>
+                     <p >
+                        <button ion-button icon-only (click)="selectAddress(user.AddressID)" class="addAddress" small>
+                            <ion-icon name="checkmark" ></ion-icon>
+                           </button>
+                       {{userDetails.FirstName}} {{userDetails.LastName}}<br>
+                       {{userDetails.Phone}}<br>
+                       {{user.AddressLine1}},<br>
+                       {{user.AddressLine2}}, <br>
+                       {{user.City}}, {{user.State}},{{user.Country}},<br>
+                       Pincode {{user.PinCode}}
+
+                     </p>
+                    
+                      
+                         <button ion-button icon-only (click)="selectAddress(user.AddressID)" class="addAddress" color="danger" small>
+                            <ion-icon name="trash" ></ion-icon>
+                           </button>
+                           <button ion-button icon-only (click)="selectAddress(user.AddressID)" class="addAddress" small color="light">
+                              <ion-icon name="create" ></ion-icon>
+                              </button>
+                   </ion-card-content>
+                 </ion-card> 
+                 
+            </ion-item>
+            </ion-list>
+            </ion-col>
+          </ion-row>
+      </div>
+     
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+        <div *ngIf="IsAddEditAddress">
+
+          Please provide your address details below:
+            <form [formGroup]="addAddress">
+                <ion-grid>
+                  <ion-row>
+                  <ion-col>
+                      <ion-item>
+                          <ion-label color="dark" floating>First Name</ion-label>
+                      <ion-input type="text" [(ngModel)]="firstName" [formControl]="addAddress.controls['firstName']" clearInput></ion-input>
+                     
+                    </ion-item>
+                    <div *ngIf="!addAddress.controls.firstName.valid && addAddress.controls.firstName.dirty" class="validator-error validation-error-padding">
+                        Please provide your first name.
+                      </div>  
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                        <ion-label color="dark" floating>Last Name</ion-label>
+                        <ion-input type="text" [(ngModel)]="lastName" [formControl]="addAddress.controls['lastName']" clearInput></ion-input>
+                       
+                      </ion-item>
+                      <div *ngIf="!addAddress.controls.lastName.valid && addAddress.controls.lastName.dirty" class="validator-error validation-error-padding">
+                          Please provide your last name.
+                        </div>  
+            
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                      <ion-item>
+                          <ion-label color="dark" floating>Mobile</ion-label>
+                          <ion-input type="text" [(ngModel)]="mobile" [formControl]="addAddress.controls['mobile']" clearInput></ion-input>
+                         
+                        </ion-item>
+                        <div *ngIf="!addAddress.controls.mobile.valid && addAddress.controls.mobile.dirty" class="validator-error validation-error-padding">
+                            Please provide 10 digit mobile number.
+                          </div>  
+              
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                      <ion-col>
+                        <ion-item>
+                            <ion-label color="dark" floating>Email</ion-label>
+                            <ion-input type="email" [(ngModel)]="email" [formControl]="addAddress.controls['email']" [disabled]="email.length>0" clearInput></ion-input>
+                          </ion-item>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                          <ion-item>
+                              <ion-label color="dark" floating>Address Line 1</ion-label>
+                              <ion-input type="text" [(ngModel)]="AddressLine1" [formControl]="addAddress.controls['AddressLine1']" clearInput></ion-input>
+                            </ion-item>
+                            <div *ngIf="!addAddress.controls.AddressLine1.valid && addAddress.controls.AddressLine1.dirty" class="validator-error validation-error-padding">
+                                Please provide your address.
+                              </div>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                          <ion-col>
+                            <ion-item>
+                                <ion-label color="dark" floating>Address Line 2</ion-label>
+                                <ion-input type="text" [(ngModel)]="AddressLine2" [formControl]="addAddress.controls['AddressLine2']" clearInput></ion-input>
+                              </ion-item>
+                              <div *ngIf="!addAddress.controls.AddressLine2.valid && addAddress.controls.AddressLine2.dirty" class="validator-error validation-error-padding">
+                                  Please provide your address.
+                                </div>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                              <ion-item>
+                                  <ion-label color="dark" floating>Landmark</ion-label>
+                                  <ion-input type="text" [(ngModel)]="landmark" [formControl]="addAddress.controls['landmark']" clearInput></ion-input>
+                                </ion-item>
+                              </ion-col>
+                          </ion-row>
+                        <ion-row>
+                            <ion-col>
+                              <ion-item>
+                                  <ion-label color="dark" floating>Select City</ion-label>
+                                  <ion-select [(ngModel)]="city" [formControl]="addAddress.controls['city']">
+                                      <ion-option value="1">New Delhi</ion-option>
+                                  </ion-select>
+                                </ion-item>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                              <ion-col>
+                                <ion-item>
+                                    <ion-label color="dark" floating>Select State</ion-label>
+                                    <ion-select [(ngModel)]="state" [formControl]="addAddress.controls['state']">
+                                        <ion-option value="1">Delhi</ion-option>
+                                    </ion-select>
+                                  </ion-item>
+                              </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                  <ion-item>
+                                      <ion-label color="dark" floating>Select Country</ion-label>
+                                      <ion-select [(ngModel)]="country" [formControl]="addAddress.controls['country']">
+                                          <ion-option value="1">India</ion-option>
+                                      </ion-select>
+                                    </ion-item>
+                                </ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col>
+                                    <ion-item>
+                                        <ion-label color="dark" floating>Pin Code</ion-label>
+                                        <ion-input type="text" [(ngModel)]="pincode" [formControl]="addAddress.controls['pincode']" clearInput></ion-input>
+                                      </ion-item>
+                                      <div *ngIf="!addAddress.controls.pincode.valid && addAddress.controls.pincode.dirty" class="validator-error validation-error-padding">
+                                          Please provide pin code.
+                                        </div>
+                                  </ion-col>
+                                </ion-row> 
+                <ion-row padding>
+                  <ion-col>
+                      <!-- <div *ngIf="loginMsgEnabled"> 
+                          <ion-label ion-text color="{{msgClass}}">{{loginMessage}}</ion-label>
+                      </div> -->
+                      <button ion-button color="secondary" (click)="addUserAddress()"  [disabled]="!addAddress.valid" icon-end>Add <ion-icon name="add" ></ion-icon> </button>
+                      <button ion-button color="danger" (click)="hideAddress()"  icon-end>Cancel <ion-icon name="close" ></ion-icon> </button>
+                      <!-- <br/><br/>
+                      <a (click)="goToForgotPassword()" class="forgotPassword" icon-end>Forgot Password <ion-icon name="unlock" ></ion-icon> </a> -->
+                   </ion-col>
+                </ion-row>
+               
+                
+                </ion-grid>
+                </form>
+        </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

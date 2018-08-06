@@ -13,27 +13,60 @@
   </ion-header>
   
   <ion-content  class="content">
-      <ion-list>
-          <ion-item>
-              <ion-label floating>Name</ion-label>
-              <ion-input type="text" [(ngModel)]="name"></ion-input>
-            </ion-item>
-          
-          <ion-item>
-            <ion-label floating>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="email"></ion-input>
-          </ion-item>
-        
-          <ion-item>
-            <ion-label floating>Phone/Mobile</ion-label>
-            <ion-input type="text" [(ngModel)]="contact"></ion-input>
-          </ion-item>
-        
-        </ion-list>
-        <a href="#" (click)="placeOrder()"  class="searchButton"  ion-button full >
-      
-            Place Order 
+     
+   <ion-grid>
+     <ion-row>
+       <ion-col>
+          <ion-list>
+              <ion-item>
+                  <h5 ion-text color="dark">DELIVERY DETAILS</h5>
+                  <!-- <ion-label floating>Name</ion-label>
+                  <ion-input type="text" [(ngModel)]="name"></ion-input> -->
+                  <div>
+                   <ion-row>
+                     <ion-col>
+                        <ion-card>
+                            <ion-card-header>
+                              Selected Address
+                            </ion-card-header>
+                            <ion-card-content>
+                              <p *ngIf="isDetailsExist">
+                               
+                                {{userDetails.FirstName}} {{userDetails.LastName}}<br>
+                                {{userDetails.Phone}}<br>
+                                {{userDetails.AddressList[0].AddressLine1}},<br>
+                                {{userDetails.AddressList[0].AddressLine2}}, <br>
+                                {{userDetails.AddressList[0].City}}, {{userDetails.AddressList[0].State}},{{userDetails.AddressList[0].Country}},<br>
+                                Pincode {{userDetails.AddressList[0].PinCode}}
+
+                              </p>
+                                <p *ngIf="!isDetailsExist">No address found</p>
+                            </ion-card-content>
+                          </ion-card> 
+                     
+                     </ion-col>
+                   </ion-row>
+                  </div>
+                  <a href="#" (click)="navigateToAddress(true)"  class="addAddress"  ion-button  icon-end *ngIf="!isDetailsExist" >Add Address <ion-icon name="add"></ion-icon> </a>
+                  <a href="#" (click)="navigateToAddress(false)"  class="addAddress" color="light"  ion-button  icon-end>Change Address <ion-icon name="checkmark"></ion-icon> </a>
+                  
+                </ion-item>
+              
+              <ion-item>
+                <!-- <ion-label floating>Email</ion-label>
+                <ion-input type="email" [(ngModel)]="email"></ion-input> -->
+              </ion-item>
             
-              </a>
+              <ion-item>
+                <!-- <ion-label floating>Phone/Mobile</ion-label>
+                <ion-input type="text" [(ngModel)]="contact"></ion-input> -->
+              </ion-item>
+            
+            </ion-list>
+            
+       </ion-col>
+     </ion-row>
+   </ion-grid>
+   <a href="#" (click)="placeOrder()"  class="searchButton"  ion-button full >Place Order </a>
       <!-- <button ion-button full (onclick)="placeOrder()">Place Order</button> -->
     </ion-content>

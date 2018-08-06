@@ -143,4 +143,32 @@ export class AuthenticationProvider {
           });
       });
   }
+
+  getUserDetails(userID){
+    return new Promise(resolve => {
+      this.http.get(this.configurationProvider.apiurl +'/UserDetails?id='+userID).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+
+  }
+
+  addUserAddress(data)
+  {
+  
+    return new Promise((resolve, reject) => {
+      this.http.post(this.configurationProvider.apiurl+'/UserDetails', JSON.stringify(data),{ 
+        headers: { 
+           'Content-Type': 'application/json'
+        }
+     })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
 }

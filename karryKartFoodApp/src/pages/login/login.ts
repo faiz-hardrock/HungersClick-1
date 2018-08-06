@@ -43,11 +43,13 @@ export class LoginPage {
   msgSignUpColor:string='';
   enableSignUpMessage:boolean=false;
   fromCart:boolean=false;
+  
   constructor(public navCtrl: NavController, public toastCtrl: ToastController,  
     public navParams: NavParams, public authProvider:AuthenticationProvider, 
     public storeProvider:StoreProvider, public spinnerProvider: SpinnerProvider, 
     public events: Events, private formBuilder: FormBuilder, private validationsProvider:ValidatorProvider, 
     private messageProvider:MessagesProvider ) {
+
       this.userLogin = this.formBuilder.group({
         email: ['',Validators.compose([Validators.email,Validators.required])],
         value: ['',Validators.compose([Validators.required, Validators.minLength(8)])]
@@ -81,9 +83,6 @@ export class LoginPage {
     break;
    
   }
-   
-
-    
   }
 
   loginUser()

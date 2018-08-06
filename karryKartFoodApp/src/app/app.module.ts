@@ -28,7 +28,7 @@ import { AlertProvider } from '../providers/alert/alert';
 import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
 import { ValidatorProvider } from '../providers/validator/validator';
 import { MessagesProvider } from '../providers/messages/messages';
-
+import { AddressPage } from '../pages/address/address';
 @NgModule({
   declarations: [
     MyApp,
@@ -42,6 +42,7 @@ import { MessagesProvider } from '../providers/messages/messages';
   LoginPage,
   CheckoutPage,
   ForgotpasswordPage,
+  AddressPage,
   MenuHeaderComponent,
   MainHeaderComponent
   ],
@@ -64,6 +65,7 @@ import { MessagesProvider } from '../providers/messages/messages';
     LoginPage,
     CheckoutPage,
     ForgotpasswordPage,
+    AddressPage,
     MenuHeaderComponent,
     MainHeaderComponent
   ],

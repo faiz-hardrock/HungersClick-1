@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams , ToastController} from 'ionic-angu
 import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../../pages/tabs/tabs';
+import { AuthenticationProvider } from '../../providers/authentication/authentication';
+import { AddressPage } from '../address/address';
 /**
  * Generated class for the CheckoutPage page.
  *
@@ -20,8 +22,32 @@ export class CheckoutPage {
  email:any;
  contact:any;
  name:any;
-  constructor(public navCtrl: NavController,public storage: Storage, public toastCtrl: ToastController,public restProvider:RestProvider, public navParams: NavParams) {
-    
+ isLogin:boolean=false;
+ userDetails = <any>{};
+ isDetailsExist:boolean=false; 
+  constructor(public navCtrl: NavController,public storage: Storage, public toastCtrl: ToastController,
+    public restProvider:RestProvider, public navParams: NavParams, private authProvider:AuthenticationProvider) {
+    this.checkUserLogin();
+  }
+
+  checkUserLogin()
+  {
+    this.storage.get('user').then((result)=>{
+      if(result!=null){
+        this.isLogin=true;
+        this.authProvider.getUserDetails(result.UserID).then(res=>{
+        if(res!=null){
+          this.userDetails = res;
+        }
+        console.log(this.userDetails);
+        if(this.userDetails.AddressList.length > 0)
+        {
+          this.isDetailsExist =true;
+        }
+        console.log(this.isDetailsExist);
+        });
+      }
+    });
   }
 
   ionViewDidLoad() {
@@ -34,6 +60,10 @@ export class CheckoutPage {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  navigateToAddress(addAddress){
+    this.navCtrl.push(AddressPage,{AddAddress:addAddress,UserDetails:this.userDetails}); 
   }
 
   placeOrder()

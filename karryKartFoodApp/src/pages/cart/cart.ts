@@ -24,10 +24,13 @@ export class CartPage {
   constructor(public navCtrl: NavController,public storage:Storage, public restProvider:RestProvider,
     public loadingCtrl:LoadingController,private spinnerProvider: SpinnerProvider, public event:Events,
     private actionSheetCtrl:ActionSheetController) {
-    this.getCartDetails(true);
+      this.getCartDetails(true);
    // this.storage.remove('cart');
   }
 
+  ionViewDidLoad() {
+   
+  }
   presentActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Please choose',
@@ -45,7 +48,7 @@ export class CartPage {
           icon:'person',
           cssClass:'actionButtons',
           handler: () => {
-            console.log('Archive clicked');
+            this.navCtrl.push(CheckoutPage);
           }
         },{
           text: 'Cancel',
@@ -53,7 +56,7 @@ export class CartPage {
           icon:'close-circle',
           cssClass:'actionButtons',
           handler: () => {
-            console.log('Cancel clicked');
+          
           }
         }
       ],
