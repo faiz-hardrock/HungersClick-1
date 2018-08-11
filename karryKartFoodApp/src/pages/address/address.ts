@@ -37,6 +37,8 @@ export class AddressPage {
   userDetails = <any>{};
   isAdd:boolean=false;
   isEdit:boolean=false;
+  addressID:number=-1;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private formBuilder: FormBuilder, 
               private validationsProvider:ValidatorProvider, private authProvider: AuthenticationProvider,
@@ -45,6 +47,9 @@ export class AddressPage {
     this.IsAddEditAddress=this.navParams.get('AddAddress');
     this.IsSelectAddress=!this.navParams.get('AddAddress');
     this.checkUserLogin(-1);
+    
+    if(this.IsAddEditAddress)
+        this.isAdd=true;
 
     this.addAddress = this.formBuilder.group({
        email: [this.userDetails.Email,Validators.compose([Validators.email,Validators.required])],
@@ -79,7 +84,7 @@ export class AddressPage {
         this.email=this.userDetails.Email;
         this.mobile=this.userDetails.Phone;
 
-        console.log(this.userDetails);
+        
         this.spinnerProvider.DestroySpinner();
         });
       }
@@ -112,8 +117,10 @@ export class AddressPage {
         this.userDetails = result;
         this.IsAddEditAddress=false;
         this.IsSelectAddress=true;
-        this.spinnerProvider.DestroySpinner();
         this.isAdd=false;
+        this.resetAddressFields();
+        this.spinnerProvider.DestroySpinner();
+       
       }
     });
     
@@ -133,20 +140,21 @@ export class AddressPage {
     this.isAdd=true;
   }
 
-  editAddress(addressID)
+  editAddress(userAddress)
   {
     this.isEdit=true;
     this.isAdd=false;
     this.IsAddEditAddress=true;
     this.IsSelectAddress=false;
-    this.checkUserLogin(addressID); 
-    this.AddressLine1 = this.userDetails.AddressList[0].AddressLine1;
-    this.AddressLine2 = this.userDetails.AddressList[0].AddressLine2;
-    this.landmark = this.userDetails.AddressList[0].LandMark;
-    this.pincode= this.userDetails.AddressList[0].PinCode;
-    this.city=this.userDetails.AddressList[0].CityID;
-    this.state=this.userDetails.AddressList[0].StateID;
-    this.country=this.userDetails.AddressList[0].CountryID;
+    this.checkUserLogin(userAddress.AddressID); 
+    this.addressID=userAddress.AddressID;
+    this.AddressLine1 = userAddress.AddressLine1;
+    this.AddressLine2 = userAddress.AddressLine2;
+    this.landmark = userAddress.LandMark;
+    this.pincode= userAddress.PinCode;
+    this.city= userAddress.CityID;
+    this.state= userAddress.StateID;
+    this.country= userAddress.CountryID;
   }
 
 
@@ -156,7 +164,7 @@ export class AddressPage {
     this.email='';
     this.firstName='';
     this.lastName='';
-    this. mobile='';
+    this.mobile='';
     this.AddressLine1='';
     this.AddressLine2='';
     this.landmark='';
@@ -181,8 +189,44 @@ export class AddressPage {
       {
         this.userDetails=result;
         
+        if(this.userDetails.AddressList.length ==0){
+          this.navCtrl.setRoot(CheckoutPage);
+        }
       }
       this.spinnerProvider.DestroySpinner();
+    });
+  }
+
+  editUserAddress(){
+    var user={
+      'FirstName':this.firstName,
+      'LastName':this.lastName,
+      'UserID':this.userDetails.UserID,
+      'Phone':this.mobile,
+      'Email':this.email,
+      'AddressID':this.addressID,
+      'AddressLine1':this.AddressLine1,
+      'AddressLine2':this.AddressLine2,
+      'LandMark':this.landmark,
+      'Pincode':this.pincode,
+      'CityID':this.city,
+      'StateID':this.state,
+      'CountryID':this.country
+    }
+    this.spinnerProvider.LoadSpinner();
+
+    this.authProvider.editUserAddress(user).then(r=>{
+      if(r!=null){
+        this.userDetails = r;
+        this.IsAddEditAddress=false;
+        this.IsSelectAddress=true;
+        this.isEdit=false;
+        this.addressID=-1;
+        this.resetAddressFields();
+        this.spinnerProvider.DestroySpinner();
+        
+        
+      }
     });
   }
 

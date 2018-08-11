@@ -172,6 +172,23 @@ export class AuthenticationProvider {
     });
   }
 
+  editUserAddress(data)
+  {
+  
+    return new Promise((resolve, reject) => {
+      this.http.put(this.configurationProvider.apiurl+'/UserDetails', JSON.stringify(data),{ 
+        headers: { 
+           'Content-Type': 'application/json'
+        }
+     })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   removeUserAddress(userID, addressID)
   {
     return new Promise(resolve => {
