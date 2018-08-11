@@ -18,8 +18,9 @@
      <ion-row>
        <ion-col>
           <ion-list>
+              <h5 ion-text color="dark">DELIVERY DETAILS</h5>
               <ion-item>
-                  <h5 ion-text color="dark">DELIVERY DETAILS</h5>
+                
                   <!-- <ion-label floating>Name</ion-label>
                   <ion-input type="text" [(ngModel)]="name"></ion-input> -->
                   <div>
@@ -63,12 +64,12 @@
                    </ion-row>
                   </div>
                   <a href="#" (click)="navigateToAddress(true)"  class="addAddress"  ion-button  icon-end *ngIf="!isDetailsExist" >Add Address <ion-icon name="add"></ion-icon> </a>
-                  <a href="#" (click)="navigateToAddress(false)"  class="addAddress" color="light"  ion-button  icon-end>Change Address <ion-icon name="radio-button-on"></ion-icon></a>
+                  <button (click)="navigateToAddress(false)"  class="addAddress" [disabled]="!isDetailsExist" color="light"  ion-button  icon-end>Change Address <ion-icon name="radio-button-on"></ion-icon></button>
                   
                 </ion-item>
-              
+                <h5 ion-text color="dark">PAYMENT METHOD</h5>
               <ion-item>
-                  <h5 ion-text color="dark">PAYMENT METHOD</h5>
+                  
                   <ion-label>Cash on delivery</ion-label>
                   <ion-toggle [(ngModel)]="cod" color="secondary"></ion-toggle>
                 <!-- <ion-label floating>Email</ion-label>
@@ -85,6 +86,6 @@
        </ion-col>
      </ion-row>
    </ion-grid>
-   <a href="#" (click)="placeOrder()"  class="searchButton"  ion-button full >Place Order </a>
+   <button (click)="placeOrder()" [disabled]="!(isAddressSelected && cod)" class="searchButton"  ion-button full >Place Order </button>
       <!-- <button ion-button full (onclick)="placeOrder()">Place Order</button> -->
     </ion-content>

@@ -25,13 +25,22 @@ export class CheckoutPage {
  isLogin:boolean=false;
  userDetails = <any>{};
  isDetailsExist:boolean=false; 
+ selectedAddressID:number=-1;
+ isAddressSelected:boolean=false;
+ cod:boolean=false;
+ GuestCheckout:boolean=false;
   constructor(public navCtrl: NavController,public storage: Storage, public toastCtrl: ToastController,
     public restProvider:RestProvider, public navParams: NavParams, private authProvider:AuthenticationProvider) {
    
-      if(this.navParams.get("AddressID")!=null)
-        this.checkUserLogin(this.navParams.get("AddressID"));
-      else
+      if(this.navParams.get("AddressID")!=null){
+        this.selectedAddressID=this.navParams.get("AddressID");
+        this.checkUserLogin(this.selectedAddressID);
+      }
+      else{
         this.checkUserLogin(-1);
+      
+  }
+  
   }
 
   checkUserLogin(addressID)
@@ -43,12 +52,14 @@ export class CheckoutPage {
         if(res!=null){
           this.userDetails = res;
         }
-        console.log(this.userDetails);
+  
         if(this.userDetails.AddressList.length > 0)
         {
           this.isDetailsExist =true;
+          this.isAddressSelected=true;
+          this.selectedAddressID=this.userDetails.AddressList[0].AddressID;
         }
-        console.log(this.isDetailsExist);
+  
         });
       }
     });
@@ -75,9 +86,10 @@ export class CheckoutPage {
     this.storage.get('cart').then((cart) => {
     var data = {
       "CartID":cart.CartID,
-      "Email":this.email,
-      "Name":this.name,
-      "Contact":this.contact
+      "UserID":this.userDetails.UserID,
+      "AddressID":this.selectedAddressID,
+      "GuestCheckout":this.GuestCheckout,
+      "PaymentType":this.cod?1:0
     };
     this.restProvider.placeOrder(data).then((result) => {
      
