@@ -144,9 +144,9 @@ export class AuthenticationProvider {
       });
   }
 
-  getUserDetails(userID,addressID){
+  getUserDetails(userID,addressID,guestUser){
     return new Promise(resolve => {
-      this.http.get(this.configurationProvider.apiurl +'/UserDetails?id='+userID+'&AddressID='+addressID).subscribe(data => {
+      this.http.get(this.configurationProvider.apiurl +'/UserDetails?id='+userID+'&AddressID='+addressID+'&GuestUser='+guestUser).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);

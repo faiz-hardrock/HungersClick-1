@@ -48,7 +48,7 @@ export class CartPage {
           icon:'person',
           cssClass:'actionButtons',
           handler: () => {
-            this.navCtrl.push(CheckoutPage);
+            this.navCtrl.push(CheckoutPage,{GuestCheckout:true});
           }
         },{
           text: 'Cancel',

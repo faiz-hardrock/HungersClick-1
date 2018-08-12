@@ -14,7 +14,7 @@
         </ion-col>
         <ion-col>
           <div *ngIf="!IsAddEditAddress"> 
-            <a href="#" (click)="showAddress()"  class="addAddress" color="dark"  ion-button  icon-end>Add <ion-icon name="add"></ion-icon> </a>
+            <a href="#" (click)="showAddress()" *ngIf="!guestCheckout" class="addAddress" color="dark"  ion-button  icon-end>Add <ion-icon name="add"></ion-icon> </a>
           </div>
           </ion-col>
       </ion-row>
@@ -56,7 +56,7 @@
                      </p>
                     
                       
-                         <button ion-button icon-only (click)="removeAddress(userDetails.UserID,user.AddressID)" class="addAddress" color="danger" small>
+                         <button ion-button icon-only [disabled]="guestCheckout" (click)="removeAddress(userDetails.UserID,user.AddressID)" class="addAddress" color="danger" small>
                             <ion-icon name="trash" ></ion-icon>
                            </button>
                            <button ion-button icon-only (click)="editAddress(user)" class="addAddress" small color="light">
@@ -122,7 +122,7 @@
                       <ion-col>
                         <ion-item>
                             <ion-label color="dark" floating>Email</ion-label>
-                            <ion-input type="email" [(ngModel)]="email" [formControl]="addAddress.controls['email']" [disabled]="email.length>0" clearInput></ion-input>
+                            <ion-input type="email" [(ngModel)]="email" [formControl]="addAddress.controls['email']" [disabled]="email.length>0 && !guestCheckout" clearInput></ion-input>
                           </ion-item>
                       </ion-col>
                     </ion-row>

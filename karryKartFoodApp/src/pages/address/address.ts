@@ -38,7 +38,7 @@ export class AddressPage {
   isAdd:boolean=false;
   isEdit:boolean=false;
   addressID:number=-1;
-  
+  guestCheckout:boolean=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private formBuilder: FormBuilder, 
               private validationsProvider:ValidatorProvider, private authProvider: AuthenticationProvider,
@@ -46,7 +46,10 @@ export class AddressPage {
     
     this.IsAddEditAddress=this.navParams.get('AddAddress');
     this.IsSelectAddress=!this.navParams.get('AddAddress');
-    this.checkUserLogin(-1);
+    this.guestCheckout=this.navParams.get('GuestCheckout');
+    
+    if(!this.guestCheckout)
+        this.checkUserLogin(-1);
     
     if(this.IsAddEditAddress)
         this.isAdd=true;
@@ -71,10 +74,11 @@ export class AddressPage {
   checkUserLogin(addressID)
   {
     this.spinnerProvider.LoadSpinner();
+    if(!this.guestCheckout){
     this.storage.get('user').then((result)=>{
       if(result!=null){
        
-        this.authProvider.getUserDetails(result.UserID,addressID).then(res=>{
+        this.authProvider.getUserDetails(result.UserID,addressID,this.guestCheckout).then(res=>{
         if(res!=null){
           this.userDetails = res;
         }
@@ -89,6 +93,28 @@ export class AddressPage {
         });
       }
     });
+  }
+  else
+  {
+    this.storage.get('guestuser').then((result)=>{
+      if(result!=null){
+       
+        this.authProvider.getUserDetails(result.UserID,addressID,this.guestCheckout).then(res=>{
+        if(res!=null){
+          this.userDetails = res;
+        }
+
+        this.firstName = this.userDetails.FirstName;
+        this.lastName=this.userDetails.LastName;
+        this.email=this.userDetails.Email;
+        this.mobile=this.userDetails.Phone;
+
+        
+        this.spinnerProvider.DestroySpinner();
+        });
+      }
+    });
+  }
   }
 
   ionViewDidLoad() {
@@ -108,7 +134,8 @@ export class AddressPage {
       'Pincode':this.pincode,
       'CityID':this.city,
       'StateID':this.state,
-      'CountryID':this.country
+      'CountryID':this.country,
+      'GuestCheckout':this.guestCheckout
     }
     this.spinnerProvider.LoadSpinner();
 
@@ -119,8 +146,10 @@ export class AddressPage {
         this.IsSelectAddress=true;
         this.isAdd=false;
         this.resetAddressFields();
+        this.storage.set('guestuser', this.userDetails).then((data) =>{
+        });
         this.spinnerProvider.DestroySpinner();
-       
+        
       }
     });
     
@@ -146,7 +175,11 @@ export class AddressPage {
     this.isAdd=false;
     this.IsAddEditAddress=true;
     this.IsSelectAddress=false;
-    this.checkUserLogin(userAddress.AddressID); 
+    if(!this.guestCheckout)
+      this.checkUserLogin(userAddress.AddressID); 
+    else
+      this.checkUserLogin(0);
+
     this.addressID=userAddress.AddressID;
     this.AddressLine1 = userAddress.AddressLine1;
     this.AddressLine2 = userAddress.AddressLine2;
@@ -178,7 +211,9 @@ export class AddressPage {
   }
 
   selectAddress(addressID){
-    this.navCtrl.setRoot(CheckoutPage,{AddressID:addressID});
+    
+    this.navCtrl.setRoot(CheckoutPage,{AddressID:addressID,GuestCheckout:this.guestCheckout,GuestAddressSelected:true});
+    
   }
 
   removeAddress(userID,addressID){
@@ -211,7 +246,8 @@ export class AddressPage {
       'Pincode':this.pincode,
       'CityID':this.city,
       'StateID':this.state,
-      'CountryID':this.country
+      'CountryID':this.country,
+      'GuestCheckout':this.guestCheckout
     }
     this.spinnerProvider.LoadSpinner();
 
@@ -221,7 +257,12 @@ export class AddressPage {
         this.IsAddEditAddress=false;
         this.IsSelectAddress=true;
         this.isEdit=false;
-        this.addressID=-1;
+        this.addressID= this.guestCheckout?0:-1;
+        this.storage.remove('guestuser').then(d=>{
+          this.storage.set('guestuser', this.userDetails).then((data) =>{
+          });
+        });
+        
         this.resetAddressFields();
         this.spinnerProvider.DestroySpinner();
         

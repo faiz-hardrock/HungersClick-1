@@ -61,9 +61,10 @@
   <ion-col>
   
   <a href="#" (click)="goToCheckout(userCart)" class="searchButton"  ion-button full >Checkout</a>
-   
-  <h6 ion-text color="dark" text-uppercase>Your Order <button (click)="deleteCart(userCart, userCart.Products)"> <ion-icon name="trash" ></ion-icon></button></h6>
+  <ion-row>
+  <ion-col><h6 ion-text color="dark" text-uppercase>Your Order <button (click)="deleteCart(userCart, userCart.Products)" class="rightFloat" color="danger" clear> <ion-icon name="trash" ></ion-icon></button></h6> </ion-col>
   
+</ion-row> 
    
   <ion-list>
       <ion-item *ngFor="let p of userCart.Products">

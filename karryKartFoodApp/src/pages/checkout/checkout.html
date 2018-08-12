@@ -64,7 +64,7 @@
                    </ion-row>
                   </div>
                   <a href="#" (click)="navigateToAddress(true)"  class="addAddress"  ion-button  icon-end *ngIf="!isDetailsExist" >Add Address <ion-icon name="add"></ion-icon> </a>
-                  <button (click)="navigateToAddress(false)"  class="addAddress" [disabled]="!isDetailsExist" color="light"  ion-button  icon-end>Change Address <ion-icon name="radio-button-on"></ion-icon></button>
+                  <a (click)="navigateToAddress(false)"  class="addAddress" disabled="!isDetailsExist" *ngIf="!guestCheckout" color="light"  ion-button  icon-end>Change Address <ion-icon name="radio-button-on"></ion-icon></a>
                   
                 </ion-item>
                 <h5 ion-text color="dark">PAYMENT METHOD</h5>
