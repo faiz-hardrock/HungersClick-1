@@ -57,6 +57,7 @@ export class CheckoutPage {
         if(!this.guestCheckout)
            this.checkUserLogin(-1);
       
+           console.log(this.isDetailsExist);
   }
   
   }
@@ -77,6 +78,7 @@ export class CheckoutPage {
         if(this.userDetails.AddressList.length > 0)
         {
           this.isDetailsExist =true;
+          
           this.isAddressSelected=true;
           this.selectedAddressID=this.userDetails.AddressList[0].AddressID;
           this.spinnerProvider.DestroySpinner();
@@ -86,10 +88,8 @@ export class CheckoutPage {
       }
     });
   }else{
-    console.log('testing here');
+    
     this.storage.get('guestuser').then((result)=>{
-      console.log('testing here');
-      console.log(result);
       if(result!=null){
         console.log(result);
         this.isLogin=true;
@@ -101,6 +101,7 @@ export class CheckoutPage {
         if(this.userDetails.AddressList.length > 0)
         {
           this.isDetailsExist =true;
+          console.log(this.isDetailsExist);
           this.isAddressSelected=true;
           this.selectedAddressID=this.userDetails.AddressList[0].AddressID;
           this.spinnerProvider.DestroySpinner();
@@ -110,6 +111,7 @@ export class CheckoutPage {
       }
     });
   }
+  
   }
 
   ionViewDidLoad() {
