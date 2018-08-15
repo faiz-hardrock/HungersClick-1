@@ -7,8 +7,25 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-        <menu-header></menu-header>
+        <!-- <menu-header></menu-header> -->
+        <div>
+            <ion-list>
+                 <ion-item *ngIf="!isAuthUser" >
+                    <button ion-button *ngIf="!isAuthUser" (click)="openLoginPage()" ion-button clear> LOGIN
+                      </button>    
+                   </ion-item>
+                <ion-item *ngIf="isAuthUser" >
+                   <button ion-button *ngIf="isAuthUser" (click)="navigateToMyOrders()" ion-button clear> MY ORDERS
+                     </button>
+                </ion-item>
+                <ion-item *ngIf="isAuthUser">
+                   <button ion-button *ngIf="isAuthUser" (click)="signOut()" ion-button clear> LOGOUT
+                     </button> 
+                 </ion-item>
+              </ion-list>
+           
+         </div>
     </ion-content>
   </ion-menu>
 
-<ion-nav [root]="rootPage" #content></ion-nav>
+<ion-nav [root]="rootPage"  #content></ion-nav>

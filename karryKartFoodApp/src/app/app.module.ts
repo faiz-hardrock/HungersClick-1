@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { CallNumber } from '@ionic-native/call-number';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -29,6 +29,7 @@ import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
 import { ValidatorProvider } from '../providers/validator/validator';
 import { MessagesProvider } from '../providers/messages/messages';
 import { AddressPage } from '../pages/address/address';
+import { MyordersPage } from '../pages/myorders/myorders';
 @NgModule({
   declarations: [
     MyApp,
@@ -43,8 +44,10 @@ import { AddressPage } from '../pages/address/address';
   CheckoutPage,
   ForgotpasswordPage,
   AddressPage,
+  MyordersPage,
   MenuHeaderComponent,
   MainHeaderComponent
+  
   ],
   imports: [
     BrowserModule,
@@ -66,8 +69,10 @@ import { AddressPage } from '../pages/address/address';
     CheckoutPage,
     ForgotpasswordPage,
     AddressPage,
+    MyordersPage,
     MenuHeaderComponent,
     MainHeaderComponent
+    
   ],
   providers: [  
     StatusBar,

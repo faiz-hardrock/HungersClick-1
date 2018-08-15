@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav,Platform,Events } from 'ionic-angular';
+import { Nav,Platform,Events, NavController,MenuController  } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -14,17 +14,25 @@ import { LoginPage } from '../pages/login/login';
 import { CheckoutPage } from '../pages/checkout/checkout';
 import { ForgotpasswordPage } from '../pages/forgotpassword/forgotpassword';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { MyordersPage } from '../pages/myorders/myorders';
+import { SpinnerProvider } from '../providers/spinner/spinner';
+import { StoreProvider } from '../providers/store/store';
+
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+
 })
 export class MyApp {
   
+  //@ViewChild(Menu) menu: Menu;
+  @ViewChild('content') nav: NavController;
   rootPage:any = TabsPage; //HomePage
   
   userName: string = 'Welcome, Guest';
   isAuthUser:any;
   constructor(platform: Platform, public authProvider:AuthenticationProvider, statusBar: StatusBar, 
-    splashScreen: SplashScreen,public storage:Storage, public events:Events ) {
+    splashScreen: SplashScreen,public storage:Storage, public events:Events, private spinnerProvider:SpinnerProvider,
+    private storeProvider:StoreProvider, private menuCtrl:MenuController ) {
     
     this.checkLogin();
     //event that listens to the user login  
@@ -48,10 +56,36 @@ export class MyApp {
     });
     
   }
- 
-
   
-
+  openLoginPage()
+  {
+    this.nav.push(LoginPage);
+    this.menuCtrl.close();
+  }
+  
+  navigateToMyOrders()
+  {
+    this.nav.push(MyordersPage);
+    this.menuCtrl.close();
+  }
+  
+  signOut(){
+    this.spinnerProvider.LoadSpinner();
+    this.storage.get('user').then((result)=>{
+      
+     this.authProvider.logOut(result.UserID,result.Token).then((res)=>{
+      
+      this.storeProvider.removeStore('user');
+      this.isAuthUser = false;
+      
+      this.userName= 'Welcome, Guest';
+      this.events.publish('user:signout', true);
+     this.spinnerProvider.DestroySpinner();
+     this.menuCtrl.close();
+     })
+    
+    });
+  }
   checkLogin()
   {
     

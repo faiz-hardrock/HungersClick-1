@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { NavController,Events } from 'ionic-angular';
+import { Nav,NavController,Events } from 'ionic-angular';
 
-//import { LoginPage } from '../../pages/login/login';
+import { LoginPage } from '../../pages/login/login';
 import {ViewChild} from '@angular/core';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { StoreProvider } from '../../providers/store/store';
 import { SpinnerProvider } from '../../providers/spinner/spinner';
+import { MyordersPage } from '../../pages/myorders/myorders';
 /**
  * Generated class for the MenuHeaderComponent component.
  *
@@ -18,11 +19,15 @@ import { SpinnerProvider } from '../../providers/spinner/spinner';
   templateUrl: 'menu-header.html'
 })
 export class MenuHeaderComponent {
+  
+  nav: NavController;
 
   userName: string = "Welcome, Guest";
   isAuthUser:any;
   constructor(public storage:Storage, public authProvider:AuthenticationProvider, 
-    public storeProvider:StoreProvider, public spinnerProvider:SpinnerProvider,public events: Events) {
+    public storeProvider:StoreProvider, public spinnerProvider:SpinnerProvider,public events: Events//,
+  //  private navCtrl:NavController
+    ) {
    
    this.checkLogin();
    //event that listens to the user login
@@ -32,15 +37,20 @@ export class MenuHeaderComponent {
     
     });
   }
-  // openLoginPage(){
-	//   this.navCtrl.push(LoginPage);
+  openLoginPage(){
+	
 	  
-  // }
+  }
   GotoLogin()
   {
 
   }
   
+  navigateToMyOrders()
+  {
+    this.nav.setRoot(MyordersPage);
+  }
+
   checkLogin()
   {
     
