@@ -12,7 +12,7 @@ import { Events } from 'ionic-angular';
 export class AuthenticationProvider {
 
   constructor(public http: HttpClient, public configurationProvider:ConfigurationProvider) {
-    console.log('Hello AuthenticationProvider Provider');
+    //console.log('Hello AuthenticationProvider Provider');
   }
 
   login(key,value)

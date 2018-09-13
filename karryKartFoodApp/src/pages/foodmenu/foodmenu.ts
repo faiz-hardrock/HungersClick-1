@@ -69,16 +69,25 @@ addToCart(productID)
 		if(cart!=null)
 		{
       cartID = cart.CartID;
-     
-	
+      this.storage.get('user').then((usr)=> {
+      if(usr!=null){  
       this.cart={
         "ProductID":productID,
         "CreateCart": false,
         "Quantity":1,
         "ProductCount":1,
-        "CartID":cartID
+        "CartID":cartID,
+        "User":usr.UserID
         };
-         
+      }else{
+        this.cart={
+          "ProductID":productID,
+          "CreateCart": false,
+          "Quantity":1,
+          "ProductCount":1,
+          "CartID":cartID
+          };
+      }
         this.restProvider.updateCart(this.cart).then((result) => {
          this.restProvider.setCart(result);
         this.presentToast();
@@ -86,23 +95,38 @@ addToCart(productID)
         }, (err) => {
           console.log(err);
         });
+      });
     }
     else
     {
-      this.cart={
-        "ProductID":productID,
-        "CreateCart": true,
-        "Quantity":1,
-        "ProductCount":1
-        };
-         
-        this.restProvider.addToCart(this.cart).then((result) => {
-         this.restProvider.setCart(result);
-        this.presentToast();
-        
-        }, (err) => {
-          console.log(err);
-        });
+      this.storage.get('user').then((usr)=>{
+        if(usr!=null)
+        {
+        this.cart={
+          "ProductID":productID,
+          "CreateCart": true,
+          "Quantity":1,
+          "ProductCount":1,
+          "User":usr.UserID
+          };
+        }else{
+          this.cart={
+            "ProductID":productID,
+            "CreateCart": true,
+            "Quantity":1,
+            "ProductCount":1
+            };
+        }
+           
+          this.restProvider.addToCart(this.cart).then((result) => {
+           this.restProvider.setCart(result);
+          this.presentToast();
+          
+          }, (err) => {
+            console.log(err);
+          });
+      });
+     
 		}
 	  });
 

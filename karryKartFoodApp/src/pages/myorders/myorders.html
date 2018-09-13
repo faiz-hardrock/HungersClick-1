@@ -13,6 +13,103 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  
+    <ion-grid>
+    <ion-row>
+    <ion-col text-center>
+    <!-- <h4>My ORDERS </h4> -->
+     <ion-list>
+    <!-- <ion-list-header>
+          Order - Placed on 
+        </ion-list-header> -->
+      <ion-item *ngFor="let order of userOrders">
+      
+       <!-- <ion-thumbnail item-start>
+        <img src="{{product.Images.length>0?product.Images[0].ImageLink:'assets/imgs/snacks.jpg'}}">
+        </ion-thumbnail> -->
+      
+      <ion-card>
+        <ion-card-header>
+          <ion-row>
+            <ion-col col-8 >
+                Order On:<br>
+                {{order.OrderPlacedDateTime}}
+            </ion-col >
+            <ion-col col-4 padding>
+                <ion-badge color="secondary" item-end>INR {{order.TotalAmount}}</ion-badge> 
+            </ion-col>
+          </ion-row>
+        
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+              <ion-row>
+                <ion-col>
+                    ITEMS
+                </ion-col>
+              </ion-row>
+           
+            <ion-row>
+                <ion-col>
+            <ion-item *ngFor="let product of order.OrderProducts"> 
+               {{product.Key.Name}} <ion-badge item-end>{{product.Value}}</ion-badge> 
+            </ion-item> 
+          </ion-col>
+        </ion-row>
+            <!-- TOTAL AMOUNT
+            <ion-item></ion-item> -->
+            <ion-row>
+              <ion-col col-8>STATUS</ion-col>
+              <ion-col col-4><ion-badge color="{{(order.OrderStatusID==1||order.OrderStatusID==2||order.OrderStatusID==3||order.OrderStatusID==4)?'primary':(order.OrderStatusID==5)?'secondary':'danger'}}" >{{order.OrderStatus}}</ion-badge></ion-col>
+            </ion-row>
+            
+            <!-- <ion-item></ion-item> -->
+            <ion-row>
+                <ion-col>
+            DELIVERY ADDRESS
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+            <ion-item>
+              <span>{{order.User.FirstName}} {{order.User.LastName}}</span><br>
+              <span>{{order.User.Phone}}</span><br>
+              <span>{{order.DeliveryAddress.AddressLine1}}, {{order.DeliveryAddress.AddressLine2}}</span><br>
+              <span>{{order.DeliveryAddress.LandMark}}</span><br>
+              <span>{{order.DeliveryAddress.City}}, {{order.DeliveryAddress.State}}</span><br>
+              <span>{{order.DeliveryAddress.Country}}- {{order.DeliveryAddress.PinCode}}</span><br>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+            <!-- <ion-item>Terminator II</ion-item>
+            <ion-item>The Empire Strikes Back</ion-item>
+            <ion-item>Blade Runner</ion-item> -->
+            </ion-list>
+        </ion-card-content>
+      </ion-card>
+        <!-- <p>INR {{product.Prices[0].Price}}</p><br>
+      <a href="#" (click)="openProductPage(product)">
+       <ion-chip >
+              <ion-icon name="information" class="searchButton" ></ion-icon>
+            </ion-chip>
+      </a>
+      <a href="#" (click)="addToCart(product.ProductID)">
+       <ion-chip>
+              <ion-icon name="add" class="addToCart"></ion-icon>
+            </ion-chip>
+      </a>
+      <a href="#" (click)="openFavouritesPage()">
+    <ion-chip>
+              <ion-icon name="heart" class="addToFavourite" ></ion-icon>
+            </ion-chip>
+      </a> -->
+      
+      </ion-item>
+    </ion-list>
+    </ion-col>
+    </ion-row>
+    </ion-grid>
+    
+    
 </ion-content>

@@ -30,6 +30,7 @@ import { ValidatorProvider } from '../providers/validator/validator';
 import { MessagesProvider } from '../providers/messages/messages';
 import { AddressPage } from '../pages/address/address';
 import { MyordersPage } from '../pages/myorders/myorders';
+import { OrderProvider } from '../providers/order/order';
 @NgModule({
   declarations: [
     MyApp,
@@ -87,7 +88,9 @@ import { MyordersPage } from '../pages/myorders/myorders';
     SpinnerProvider,
     AlertProvider,
     ValidatorProvider,
-    MessagesProvider
+    MessagesProvider,
+    OrderProvider,
+    AlertProvider
   ]
 })
 export class AppModule {}

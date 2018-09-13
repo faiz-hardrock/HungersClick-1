@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import { ToastController,AlertController } from 'ionic-angular';
+
 /*
   Generated class for the AlertProvider provider.
 
@@ -10,8 +11,17 @@ import { ToastController } from 'ionic-angular';
 @Injectable()
 export class AlertProvider {
 
-  constructor(public http: HttpClient, public toastCtrl:ToastController) {
+  constructor(public http: HttpClient, public alertController:AlertController, public toastCtrl:ToastController) {
     console.log('Hello AlertProvider Provider');
+  }
+
+  presentAlert(alTitle,alText) {
+    let alert = this.alertController.create({
+      title: alTitle,
+      subTitle: alText,
+      buttons: ['Dismiss']
+    });
+    alert.present();
   }
 
   presentToast(msg,timeInMiliSecs,pos) {
@@ -22,4 +32,5 @@ export class AlertProvider {
     });
     toast.present();
   }
+
 }
