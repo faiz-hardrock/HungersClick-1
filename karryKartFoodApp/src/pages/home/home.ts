@@ -8,6 +8,8 @@ import { StoreProvider } from '../../providers/store/store';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { Storage } from '@ionic/storage';
 import { MenuController } from 'ionic-angular';
+import { SearchProvider } from '../../providers/search/search';
+import { ProductPage } from '../product/product';
 
 @Component({
   selector: 'page-home',
@@ -16,9 +18,11 @@ import { MenuController } from 'ionic-angular';
 export class HomePage {
 isAuthUser:any=false;
 userName:any=null;
+showSearchResult:boolean=false;
+searchResults:any=null;
   constructor(public navCtrl: NavController,private callNumber: CallNumber,private alertCtrl: AlertController, public storeProvider:StoreProvider,public storage:Storage
-   , public authenticationProvider:AuthenticationProvider
-   , menuCtrl:MenuController, public events:Events
+   , public authenticationProvider:AuthenticationProvider, menuCtrl:MenuController, public events:Events,
+   private searchProvider:SearchProvider
   ) {
     //this.storeProvider.removeStore('user');
     this.checkLogin();
@@ -91,5 +95,26 @@ private setUserName(result){
   alert.present();
 }
   
+searchItems(ev: any){
+  var key = ev.target.value;
+if(key.length>2){
+  this.searchProvider.searchItems(key).then(result=>{
+    //this.searchResults=null;
+    if(result!=null)
+    {
+      this.searchResults = result;
+      this.showSearchResult=true;
+    }
+  })
+}else{
+  this.showSearchResult=false;
+}
+
+}
+
+openProductPage(product){
+  this.navCtrl.push(ProductPage,{data:product});
+  
+}
   
 }

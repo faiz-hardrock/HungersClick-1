@@ -6,6 +6,8 @@ import { CheckoutPage } from '../../pages/checkout/checkout';
 import { SpinnerProvider } from '../../providers/spinner/spinner';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
+import { SearchProvider } from '../../providers/search/search';
+import { ProductPage } from '../product/product';
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html'
@@ -16,6 +18,8 @@ export class CartPage {
   cartID:any;
   cart:any;
   isCartEmpty:boolean=false;
+  showSearchResult:boolean=false;
+  searchResults:any=null;
   public loading = this.loadingCtrl.create({
     content: `
              Please wait...`
@@ -23,7 +27,7 @@ export class CartPage {
   });
   constructor(public navCtrl: NavController,public storage:Storage, public restProvider:RestProvider,
     public loadingCtrl:LoadingController,private spinnerProvider: SpinnerProvider, public event:Events,
-    private actionSheetCtrl:ActionSheetController) {
+    private actionSheetCtrl:ActionSheetController,  private searchProvider:SearchProvider) {
       this.getCartDetails(true);
    // this.storage.remove('cart');
   }
@@ -166,4 +170,25 @@ export class CartPage {
     this.navCtrl.setRoot(HomePage);
   }
   
+  searchItems(ev: any){
+    var key = ev.target.value;
+  if(key.length>2){
+    this.searchProvider.searchItems(key).then(result=>{
+      this.searchResults=null;
+      if(result!=null)
+      {
+        this.searchResults = result;
+        this.showSearchResult=true;
+      }
+    })
+  }else{
+    this.showSearchResult=false;
+  }
+  
+  }
+  
+  openProductPage(product){
+    this.navCtrl.push(ProductPage,{data:product});
+    
+  }
 }

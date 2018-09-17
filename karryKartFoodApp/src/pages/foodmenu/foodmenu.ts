@@ -4,6 +4,7 @@ import { FavouritesPage } from '../favourites/favourites';
 import { RestProvider } from '../../providers/rest/rest';
 import { ProductPage } from '../product/product';
 import { Storage } from '@ionic/storage';
+import { SearchProvider } from '../../providers/search/search';
 
 
 @Component({
@@ -14,13 +15,16 @@ export class FoodmenuPage {
   products: any;
   cart:any;
   private count: number = 0;
+  showSearchResult:boolean=false;
+  searchResults:any=null;
   public loading = this.loadingCtrl.create({
     content: `
              Please wait...`
     
   });
   
-  constructor(public navCtrl: NavController,public restProvider: RestProvider, public loadingCtrl:LoadingController,public toastCtrl: ToastController,public storage: Storage,public events: Events) {
+  constructor(public navCtrl: NavController,public restProvider: RestProvider, public loadingCtrl:LoadingController,
+  public toastCtrl: ToastController,public storage: Storage,public events: Events, private searchProvider:SearchProvider) {
 	// this.presentLoadingCustom();
  this.getProducts();
   }
@@ -133,6 +137,21 @@ addToCart(productID)
     
 }
 
+searchItems(ev: any){
+  var key = ev.target.value;
+if(key.length>2){
+  this.searchProvider.searchItems(key).then(result=>{
+    //this.searchResults=null;
+    if(result!=null)
+    {
+      this.searchResults = result;
+      this.showSearchResult=true;
+    }
+  })
+}else{
+  this.showSearchResult=false;
+}
 
+}
 
 }

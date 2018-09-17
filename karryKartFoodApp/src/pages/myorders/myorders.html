@@ -32,11 +32,14 @@
       <ion-card>
         <ion-card-header>
           <ion-row>
-            <ion-col col-8 >
+            <ion-col >
                 Order On:<br>
                 {{order.OrderPlacedDateTime}}
             </ion-col >
-            <ion-col col-4 padding>
+          </ion-row>
+          <ion-row>
+            <ion-col >
+              TOTAL AMOUNT <br>
                 <ion-badge color="secondary" item-end>INR {{order.TotalAmount}}</ion-badge> 
             </ion-col>
           </ion-row>
