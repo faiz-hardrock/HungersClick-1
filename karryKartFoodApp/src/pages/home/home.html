@@ -46,7 +46,8 @@
       [showCancelButton]="shouldShowCancel"
       (ionInput)="searchItems($event)"
       (ionCancel)="onCancel($event)"
-      placeholder="Search our menu..">
+      (ionClear)="onCancel($event)"
+      placeholder="Search for meals, snacks etc.">
     </ion-searchbar>
     <ion-list *ngIf="showSearchResult">
       <ion-item *ngFor="let item of searchResults">

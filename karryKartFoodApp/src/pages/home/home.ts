@@ -116,5 +116,11 @@ openProductPage(product){
   this.navCtrl.push(ProductPage,{data:product});
   
 }
-  
+
+onCancel(ev: any)
+  {
+    this.searchResults=null;
+    this.showSearchResult=false;
+
+  }
 }

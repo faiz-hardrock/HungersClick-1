@@ -25,7 +25,8 @@ export class FoodmenuPage {
   
   constructor(public navCtrl: NavController,public restProvider: RestProvider, public loadingCtrl:LoadingController,
   public toastCtrl: ToastController,public storage: Storage,public events: Events, private searchProvider:SearchProvider) {
-	// this.presentLoadingCustom();
+  // this.presentLoadingCustom();
+  this.restProvider.removeCart();
  this.getProducts();
   }
   openFavouritesPage(){

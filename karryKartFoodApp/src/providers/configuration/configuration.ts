@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConfigurationProvider {
 
-  //public apiurl = 'http://localhost:13518/api';
+ // public apiurl = 'http://localhost:13518/api';
  public apiurl = 'http://testapi.karrykart.com/api';
   
   constructor(public http: HttpClient) {

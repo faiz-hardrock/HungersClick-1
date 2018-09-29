@@ -74,13 +74,15 @@ export class CheckoutPage {
         if(res!=null){
           this.userDetails = res;
         }
-  
+        console.log(this.userDetails.AddressList);
         if(this.userDetails.AddressList.length > 0)
         {
           this.isDetailsExist =true;
           
           this.isAddressSelected=true;
           this.selectedAddressID=this.userDetails.AddressList[0].AddressID;
+          this.spinnerProvider.DestroySpinner();
+        }else{
           this.spinnerProvider.DestroySpinner();
         }
   

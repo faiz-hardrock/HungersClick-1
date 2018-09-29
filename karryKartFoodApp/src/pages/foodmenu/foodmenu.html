@@ -39,13 +39,14 @@
   <ion-col>
   <ion-item>
     <!-- <ion-input type="text" placeholder="Search for meals, snacks etc"></ion-input>-->
-    <ion-searchbar
-    [(ngModel)]="myInput"
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="searchItems($event)"
-    (ionCancel)="onCancel($event)"
-    placeholder="Search our menu..">
-  </ion-searchbar>
+     <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="searchItems($event)"
+      (ionCancel)="onCancel($event)"
+      (ionClear)="onCancel($event)"
+      placeholder="Search for meals, snacks etc.">
+    </ion-searchbar>
   <ion-list *ngIf="showSearchResult">
     <ion-item *ngFor="let item of searchResults">
      <a href='#' (click)="openProductPage(item)"> {{ item.Name }}</a> 
