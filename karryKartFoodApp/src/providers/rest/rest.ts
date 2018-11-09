@@ -11,9 +11,9 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class RestProvider {
 
-apiUrl = 'http://testapi.karrykart.com/api';
-
-//public apiUrl = 'http://localhost:13518/api';
+//apiUrl = 'http://testapi.karrykart.com/api';
+apiUrl = 'http://api.karrykart.com/api';
+// public apiUrl = 'http://localhost:13518/api';
 cartID:any;
 
   constructor(public http: HttpClient,public storage: Storage, public events: Events) {
@@ -23,6 +23,16 @@ cartID:any;
   getProducts() {
   return new Promise(resolve => {
     this.http.get(this.apiUrl+'/product').subscribe(data => {
+      resolve(data);
+    }, err => {
+      console.log(err);
+    });
+  });
+}
+
+getProductsByCategory(categoryID) {
+  return new Promise(resolve => {
+    this.http.get(this.apiUrl+'/product?ActiveOnly=true&CategoryID='+categoryID+'&SubCategories=-1 ').subscribe(data => {
       resolve(data);
     }, err => {
       console.log(err);
@@ -133,6 +143,37 @@ getCartID(){
 
   });
 
+}
+
+makeOnlinePayment(data){
+  return new Promise((resolve, reject) => {
+    this.http.post(this.apiUrl+'/payment', JSON.stringify(data),{ 
+      headers: { 
+         'Content-Type': 'application/json'
+      }
+   })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
+}
+
+redirectToPayment(data)
+{
+  return new Promise((resolve, reject) => {
+    this.http.post(data.URL, JSON.stringify(data.options),{ 
+      headers: { 
+         'Content-Type': 'application/json'
+      }
+   })
+      .subscribe(res => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  });
 }
 
 placeOrder(data)

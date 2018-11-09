@@ -5,6 +5,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { ProductPage } from '../product/product';
 import { Storage } from '@ionic/storage';
 import { SearchProvider } from '../../providers/search/search';
+import { SpinnerProvider } from '../../providers/spinner/spinner';
 
 
 @Component({
@@ -24,9 +25,10 @@ export class FoodmenuPage {
   });
   
   constructor(public navCtrl: NavController,public restProvider: RestProvider, public loadingCtrl:LoadingController,
-  public toastCtrl: ToastController,public storage: Storage,public events: Events, private searchProvider:SearchProvider) {
+  public toastCtrl: ToastController,public storage: Storage,public events: Events, private searchProvider:SearchProvider,
+  private spinnerProvider:SpinnerProvider) {
   // this.presentLoadingCustom();
-  this.restProvider.removeCart();
+  //this.restProvider.removeCart();
  this.getProducts();
   }
   openFavouritesPage(){
@@ -68,6 +70,7 @@ export class FoodmenuPage {
 
 addToCart(productID)
 { 
+  this.spinnerProvider.LoadSpinner();
   var cartID:any;
   this.storage.get('cart').then((cart) => {
     
@@ -95,6 +98,7 @@ addToCart(productID)
       }
         this.restProvider.updateCart(this.cart).then((result) => {
          this.restProvider.setCart(result);
+         this.spinnerProvider.DestroySpinner();
         this.presentToast();
         
         }, (err) => {
@@ -125,6 +129,7 @@ addToCart(productID)
            
           this.restProvider.addToCart(this.cart).then((result) => {
            this.restProvider.setCart(result);
+           this.spinnerProvider.DestroySpinner();
           this.presentToast();
           
           }, (err) => {

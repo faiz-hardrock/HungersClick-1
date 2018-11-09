@@ -45,7 +45,7 @@
       (ionInput)="searchItems($event)"
       (ionCancel)="onCancel($event)"
       (ionClear)="onCancel($event)"
-      placeholder="Search for meals, snacks etc.">
+      placeholder="Search for gifts, chocolates etc.">
     </ion-searchbar>
   <ion-list *ngIf="showSearchResult">
     <ion-item *ngFor="let item of searchResults">
@@ -68,17 +68,17 @@
 <ion-grid>
 <ion-row>
 <ion-col text-center>
-<h4>FOOD MENU</h4>
+<h4 class="heading-text">OUR PRODUCTS</h4>
  <ion-list>
-<ion-list-header>
+<!-- <ion-list-header>
       Biryani
-    </ion-list-header>
+    </ion-list-header> -->
   <ion-item *ngFor="let product of products">
   
    <ion-thumbnail item-start>
     <img src="{{product.Images.length>0?product.Images[0].ImageLink:'assets/imgs/snacks.jpg'}}">
     </ion-thumbnail>
-	<h2>{{product.Name}}</h2>
+	<h2 class="heading-text">{{product.Name}}</h2>
     <p>INR {{product.Prices[0].Price}}</p><br>
 	<a href="#" (click)="openProductPage(product)">
 	 <ion-chip >

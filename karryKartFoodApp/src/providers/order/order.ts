@@ -18,7 +18,18 @@ export class OrderProvider {
   getUserOrders(userID)
   {
     return new Promise(resolve => {
-      this.http.get(this.configurationProvider.apiurl+'/order?OrderID=&'+'UserID='+userID).subscribe(data => {
+      this.http.get(this.configurationProvider.apiurl+'/order?OrderID=&'+'UserID='+userID+'&CartID=').subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
+  getOrderByCartID(cartID,userID)
+  {
+    return new Promise(resolve => {
+      this.http.get(this.configurationProvider.apiurl+'/order?OrderID=&'+'UserID='+userID+'&CartID='+cartID).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);

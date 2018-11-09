@@ -44,7 +44,7 @@
         (ionInput)="searchItems($event)"
         (ionCancel)="onCancel($event)"
         (ionClear)="onCancel($event)"
-        placeholder="Search for meals, snacks etc.">
+        placeholder="Search for gifts, chocolates etc.">
       </ion-searchbar>
       <ion-list *ngIf="showSearchResult">
         <ion-item *ngFor="let item of searchResults">
@@ -92,7 +92,7 @@
         <p>INR {{p.Prices[0].Price}}</p>
        
         <div class="cartOptions">
-            <a href="#" (click)="openProductPage(product)">
+            <a href="#" (click)="openProductPage(p)">
                 <ion-chip >
                        <ion-icon name="information" class="searchButton" ></ion-icon>
                      </ion-chip>
@@ -102,11 +102,11 @@
                  <ion-icon name="trash" class="searchButton" ></ion-icon>
                </ion-chip>
            </a>
-           <a href="#" (click)="openFavouritesPage()">
+           <!-- <a href="#" (click)="openFavouritesPage()">
        <ion-chip>
                  <ion-icon name="heart" class="addToFavourite" ></ion-icon>
                </ion-chip>
-         </a>
+         </a> -->
         </div>
     </ion-col>
     

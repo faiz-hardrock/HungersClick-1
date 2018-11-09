@@ -32,6 +32,10 @@ import { AddressPage } from '../pages/address/address';
 import { MyordersPage } from '../pages/myorders/myorders';
 import { OrderProvider } from '../providers/order/order';
 import { SearchProvider } from '../providers/search/search';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { HomeProvider } from '../providers/home/home';
+import { CategoryproductsPage } from '../pages/categoryproducts/categoryproducts';
+import { OfferproductsPage } from '../pages/offerproducts/offerproducts';
 @NgModule({
   declarations: [
     MyApp,
@@ -48,8 +52,9 @@ import { SearchProvider } from '../providers/search/search';
   AddressPage,
   MyordersPage,
   MenuHeaderComponent,
-  MainHeaderComponent
-  
+  MainHeaderComponent,
+  CategoryproductsPage,
+  OfferproductsPage
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,9 @@ import { SearchProvider } from '../providers/search/search';
     AddressPage,
     MyordersPage,
     MenuHeaderComponent,
-    MainHeaderComponent
+    MainHeaderComponent,
+    CategoryproductsPage,
+    OfferproductsPage
     
   ],
   providers: [  
@@ -92,7 +99,9 @@ import { SearchProvider } from '../providers/search/search';
     MessagesProvider,
     OrderProvider,
     AlertProvider,
-    SearchProvider
+    SearchProvider,
+    InAppBrowser,
+    HomeProvider
   ]
 })
 export class AppModule {}

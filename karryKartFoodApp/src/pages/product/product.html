@@ -15,7 +15,7 @@
 
 <ion-content>
  <ion-card>
-  <img  src="assets/imgs/snacks.jpg"/>
+  <img  src="{{prod.Images[0].ImageLink}}"/>
   <ion-card-content>
     <ion-card-title>
 	
@@ -23,12 +23,12 @@
       </ion-card-title>
 	  <ion-row>
 	  <ion-col>
-	  <ion-chip color="secondary">
+	  <!-- <ion-chip color="secondary">
   <ion-label>Veg</ion-label>
 </ion-chip>
  <ion-chip color="dark">
   <ion-label>Indian</ion-label>
-</ion-chip>
+</ion-chip> -->
 </ion-col>
 </ion-row>
 <ion-row>
@@ -38,7 +38,7 @@
 	  </ion-chip>
 	  </ion-col>
 	  <ion-col>
-	  <a href="#" >
+	  <a href="#" (click)="addToCart(prod.ProductID)">
    <ion-chip>
           <ion-icon name="add" class="addToCart"></ion-icon>
         </ion-chip>
@@ -57,7 +57,7 @@
       {{prod.Description}}
     </p>
 	<hr />
-	<h5 color="primary">FEATURES / INGREDIENTS</h5>
+	<h5 color="primary">FEATURES</h5>
 	<p>
 	<br>
 	<ion-list>
@@ -67,7 +67,7 @@
 	</ion-list>
 	</p>
   </ion-card-content>
-   <ion-row>
+   <!-- <ion-row>
     <ion-col>
       <button ion-button icon-left clear small>
         <ion-icon name="thumbs-up"></ion-icon>
@@ -81,6 +81,6 @@
       </button>
     </ion-col>
     
-  </ion-row>
+  </ion-row> -->
 </ion-card>
 </ion-content>

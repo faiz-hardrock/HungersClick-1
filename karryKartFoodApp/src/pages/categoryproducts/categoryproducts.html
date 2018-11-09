@@ -1,0 +1,70 @@
+<!--
+  Generated template for the CategoryproductsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{categoryName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngIf="productsAvailable">
+    <ion-grid>
+        <ion-row>
+        <ion-col text-center>
+        <!-- <h4>Products</h4> -->
+         <ion-list>
+        <!-- <ion-list-header>
+            {{categoryName}}
+            </ion-list-header> -->
+          <ion-item *ngFor="let product of products">
+          
+           <ion-thumbnail item-start>
+            <img src="{{product.Images.length>0?product.Images[0].ImageLink:'assets/imgs/snacks.jpg'}}">
+            </ion-thumbnail>
+          <h2 class="heading-text">{{product.Name}}</h2>
+            <p>INR {{product.Prices[0].Price}}</p><br>
+          <a href="#" (click)="openProductPage(product)">
+           <ion-chip >
+                  <ion-icon name="information" class="searchButton" ></ion-icon>
+                </ion-chip>
+          </a>
+          <a href="#" (click)="addToCart(product.ProductID)">
+           <ion-chip>
+                  <ion-icon name="add" class="addToCart"></ion-icon>
+                </ion-chip>
+          </a>
+          <a href="#" (click)="openFavouritesPage()">
+        <ion-chip>
+                  <ion-icon name="heart" class="addToFavourite" ></ion-icon>
+                </ion-chip>
+          </a>
+          
+          </ion-item>
+        </ion-list>
+        </ion-col>
+        </ion-row>
+        </ion-grid>
+      </div>
+      <div *ngIf="!productsAvailable">
+          <ion-card>
+              <!-- <img src="img/nin-live.png"/> -->
+              <ion-card-content>
+                <ion-card-title class="heading-text">
+                 No Product Found!!
+                  </ion-card-title>
+                <p class="heading-text">
+                  Our stocks for this category may have been finished. Please have a look at it later.
+                  <a href="#" (click)="goToHome()" class="searchButton"  ion-button full >Continue Shopping</a>
+                </p>
+              </ion-card-content>
+            </ion-card>
+      </div>
+</ion-content>
+

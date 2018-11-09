@@ -68,13 +68,20 @@
                   
                 </ion-item>
                 <h5 ion-text color="dark">PAYMENT METHOD</h5>
+              <!-- <ion-item>
+                  
+                  <ion-label>Online Payment</ion-label>
+                  <ion-toggle [(ngModel)]="online" color="secondary"></ion-toggle>
+             
+              </ion-item> -->
+
               <ion-item>
                   
-                  <ion-label>Cash on delivery</ion-label>
-                  <ion-toggle [(ngModel)]="cod" color="secondary"></ion-toggle>
-                <!-- <ion-label floating>Email</ion-label>
-                <ion-input type="email" [(ngModel)]="email"></ion-input> -->
-              </ion-item>
+                <ion-label>Cash on delivery</ion-label>
+                <ion-toggle [(ngModel)]="cod" color="secondary" ></ion-toggle>
+              <!-- <ion-label floating>Email</ion-label>
+              <ion-input type="email" [(ngModel)]="email"></ion-input> -->
+            </ion-item>
             
               <ion-item>
                 <!-- <ion-label floating>Phone/Mobile</ion-label>
@@ -86,6 +93,6 @@
        </ion-col>
      </ion-row>
    </ion-grid>
-   <button (click)="placeOrder()" [disabled]="!(isAddressSelected && cod)" class="searchButton"  ion-button full >Place Order </button>
+   <button (click)="placeOrder()" [disabled]="!(isAddressSelected && (cod ||online))" class="searchButton"  ion-button full >Place Order </button>
       <!-- <button ion-button full (onclick)="placeOrder()">Place Order</button> -->
     </ion-content>

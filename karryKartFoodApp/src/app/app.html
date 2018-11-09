@@ -1,8 +1,18 @@
 <ion-menu [content]="content">
     <ion-header>
       <ion-toolbar>
-        <ion-title>
-        {{userName}}
+        <ion-title >
+          <ion-row><ion-col col-1>
+              <ion-avatar class="heading-text" >
+                  <ion-icon  name="person" ></ion-icon> 
+              </ion-avatar>
+          </ion-col> 
+          <ion-col col-11 class="heading-text" >
+              {{userName}}
+          </ion-col>
+        </ion-row>
+            
+       
         </ion-title>
       </ion-toolbar>
     </ion-header>
@@ -11,15 +21,15 @@
         <div>
             <ion-list>
                  <ion-item *ngIf="!isAuthUser" >
-                    <button ion-button *ngIf="!isAuthUser" (click)="openLoginPage()" ion-button clear> LOGIN
+                    <button ion-button *ngIf="!isAuthUser" (click)="openLoginPage()"  class="linkButton" ion-button clear icon-end> LOGIN  <ion-icon  name="log-in" class="linkButton" ></ion-icon> 
                       </button>    
                    </ion-item>
                 <ion-item *ngIf="isAuthUser" >
-                   <button ion-button *ngIf="isAuthUser" (click)="navigateToMyOrders()" ion-button clear> MY ORDERS
+                   <button ion-button *ngIf="isAuthUser" (click)="navigateToMyOrders()" class="linkButton" ion-button clear icon-end> MY ORDERS <ion-icon  name="list" class="linkButton" ></ion-icon> 
                      </button>
                 </ion-item>
                 <ion-item *ngIf="isAuthUser">
-                   <button ion-button *ngIf="isAuthUser" (click)="signOut()" ion-button clear> LOGOUT
+                   <button ion-button *ngIf="isAuthUser" (click)="signOut()"  class="linkButton" ion-button clear icon-end> LOGOUT <ion-icon  name="log-out" class="linkButton" ></ion-icon>
                      </button> 
                  </ion-item>
               </ion-list>

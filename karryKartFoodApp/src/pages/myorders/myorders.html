@@ -52,14 +52,21 @@
                     ITEMS
                 </ion-col>
               </ion-row>
-           
+              <ion-item *ngFor="let product of order.OrderProducts"> 
             <ion-row>
-                <ion-col>
-            <ion-item *ngFor="let product of order.OrderProducts"> 
+              <ion-col col-2>
+                  <ion-avatar item-start>
+                      <img src="{{product.Key.Images.length>0?product.Key.Images[0].ImageLink:'assets/imgs/snacks.jpg'}}">
+                  </ion-avatar>
+              </ion-col>
+                <ion-col col-10>
+           
                {{product.Key.Name}} <ion-badge item-end>{{product.Value}}</ion-badge> 
-            </ion-item> 
+           
           </ion-col>
         </ion-row>
+        </ion-item> 
+      
             <!-- TOTAL AMOUNT
             <ion-item></ion-item> -->
             <ion-row>
